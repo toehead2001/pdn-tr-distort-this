@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Reflection;
 using PaintDotNet.Effects;
@@ -11,7 +9,7 @@ using PaintDotNet;
 
 namespace TRsDistortThis
 {
-    public class EffectPluginConfigDialog : PaintDotNet.Effects.EffectConfigDialog
+    public class EffectPluginConfigDialog : EffectConfigDialog
     {
         private Point[] Corners = new Point[4];
         private Point[] vCorners = new Point[4];

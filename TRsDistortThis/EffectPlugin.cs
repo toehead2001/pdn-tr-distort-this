@@ -1,16 +1,8 @@
 using System;
-using System.Text;
-using System.Windows;
 using System.Reflection;
-using System.Windows.Forms;
 using PaintDotNet;
 using PaintDotNet.Effects;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.Drawing.Text;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
 namespace TRsDistortThis
 {
@@ -58,8 +50,7 @@ namespace TRsDistortThis
 
     [PluginSupportInfo(typeof(PluginSupportInfo), DisplayName = "TR's DistortThis!")]
 
-    public class EffectPlugin
-        : PaintDotNet.Effects.Effect
+    public class EffectPlugin : Effect
     {
         public static string StaticName
         {
@@ -69,8 +60,13 @@ namespace TRsDistortThis
             }
         }
 
-
-        public static Bitmap StaticImage { get { return TRsDistortThis.Properties.Resources.icon; } }
+        public static Bitmap StaticImage
+        {
+            get
+            {
+                return Properties.Resources.icon;
+            }
+        }
 
         public static string StaticSubMenuName
         {
@@ -81,7 +77,7 @@ namespace TRsDistortThis
         }
 
         public EffectPlugin()
-            : base(EffectPlugin.StaticName, EffectPlugin.StaticImage, EffectPlugin.StaticSubMenuName, EffectFlags.Configurable)
+            : base(StaticName, StaticImage, StaticSubMenuName, EffectFlags.Configurable)
         {
 
         }
@@ -109,9 +105,6 @@ namespace TRsDistortThis
 
         public override void Render(EffectConfigToken parameters, RenderArgs dstArgs, RenderArgs srcArgs, Rectangle[] rois, int startIndex, int length)
         {
-            PdnRegion selectionRegion = EnvironmentParameters.GetSelection(srcArgs.Bounds);
-
-
             if (IsCancelRequested) return;
             passClass.StringID = "1";
             for (int i = startIndex; i < startIndex + length; ++i)
@@ -129,7 +122,7 @@ namespace TRsDistortThis
         }
 
 
-        System.Drawing.Point[] Corners = new System.Drawing.Point[4];
+        Point[] Corners = new Point[4];
         Rectangle sCorners = new Rectangle();
         bool AlphaTrans = true; // [0,1] Alpha Transparency
         bool Perspective = true; // [0,1] Perspective
@@ -146,7 +139,7 @@ namespace TRsDistortThis
 
             Rectangle sel = sCorners;
 
-            
+
             Surface src2 = new Surface(sel.Width, sel.Height);
             src2.CopySurface(src, sel);
 
@@ -170,7 +163,7 @@ namespace TRsDistortThis
                     for (double x = rect.Left; x < rect.Right; x++)
                     {
                         if (IsCancelRequested) break;
-                        
+
                         //Clockwise 
                         MyUtils.PointD P = new MyUtils.PointD(x, y);
 

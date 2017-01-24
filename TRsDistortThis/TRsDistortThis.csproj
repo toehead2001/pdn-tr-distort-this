@@ -71,13 +71,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="EffectPluginIcon.png" />
-    <Content Include="Resources\BG.png" />
-    <Content Include="Resources\icon.bmp" />
-    <Content Include="Resources\Icon.png" />
-    <Content Include="Resources\soccer-ball.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />
