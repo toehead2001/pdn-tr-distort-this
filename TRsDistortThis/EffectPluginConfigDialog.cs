@@ -516,6 +516,13 @@ namespace TRsDistortThis
 
                 }
                 sCorners = MyRect(Corners);
+                if (sCorners.Width <= 0 || sCorners.Height <= 0)
+                {
+                    SWAFlag = true;
+                    SWA.Checked = true;
+                    return;
+                }
+
                 FinishTokenUpdate();
 
             }
