@@ -763,7 +763,7 @@ namespace TRsDistortThis
             Point fixmotion = new Point(x, y);
             for (int i = 0; i < 4; i++)
             {
-                if (MyUtils.PythagP(vCorners[i], fixmotion) <= 5)
+                if (MyUtils.Pythag(vCorners[i], fixmotion) <= 5)
                 {
                     results = true;
                     CornerSelect = i;

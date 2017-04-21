@@ -151,10 +151,10 @@ namespace TRsDistortThis
                 double vv = 0;
 
 
-                MyUtils.PointD A = new MyUtils.PointD(Corners[0].X, Corners[0].Y);
-                MyUtils.PointD B = new MyUtils.PointD(Corners[1].X, Corners[1].Y);
-                MyUtils.PointD C = new MyUtils.PointD(Corners[2].X, Corners[2].Y);
-                MyUtils.PointD D = new MyUtils.PointD(Corners[3].X, Corners[3].Y);
+                PointD A = new PointD(Corners[0].X, Corners[0].Y);
+                PointD B = new PointD(Corners[1].X, Corners[1].Y);
+                PointD C = new PointD(Corners[2].X, Corners[2].Y);
+                PointD D = new PointD(Corners[3].X, Corners[3].Y);
 
 
                 for (double y = rect.Top; y < rect.Bottom; y++)
@@ -165,7 +165,7 @@ namespace TRsDistortThis
                         if (IsCancelRequested) break;
 
                         //Clockwise 
-                        MyUtils.PointD P = new MyUtils.PointD(x, y);
+                        PointD P = new PointD(x, y);
 
                         double x1 = MyUtils.xproduct(A, P, D);
                         double x2 = MyUtils.xproduct(B, P, C);
@@ -178,10 +178,10 @@ namespace TRsDistortThis
                         y2 = Math.Abs(y2);
 
 
-                        double cx1 = MyUtils.PythagPD(A, D);
-                        double cx2 = MyUtils.PythagPD(B, C);
-                        double cy1 = MyUtils.PythagPD(A, B);
-                        double cy2 = MyUtils.PythagPD(D, C);
+                        double cx1 = MyUtils.Pythag(A, D);
+                        double cx2 = MyUtils.Pythag(B, C);
+                        double cy1 = MyUtils.Pythag(A, B);
+                        double cy2 = MyUtils.Pythag(D, C);
 
 
                         //Perspective Skew
