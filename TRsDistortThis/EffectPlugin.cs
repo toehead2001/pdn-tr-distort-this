@@ -98,8 +98,15 @@ namespace TRsDistortThis
             RenderFlag = token.RenderFlag;
             Uvalue = (double)token.UValue / 100;
             Vvalue = (double)token.VValue / 100;
-            base.OnSetRenderInfo(parameters, dstArgs, srcArgs);
 
+            if (src2 == null || src2.Size != sCorners.Size)
+            {
+                src2?.Dispose();
+                src2 = new Surface(sCorners.Size);
+                src2.CopySurface(srcArgs.Surface, sCorners);
+            }
+
+            base.OnSetRenderInfo(parameters, dstArgs, srcArgs);
         }
 
 
@@ -129,6 +136,7 @@ namespace TRsDistortThis
         bool RenderFlag = false;
         double Vvalue = 1;
         double Uvalue = 1;
+        Surface src2;
 
 
 
@@ -138,10 +146,6 @@ namespace TRsDistortThis
             PdnRegion selReg = EnvironmentParameters.GetSelection(src.Bounds);
 
             Rectangle sel = sCorners;
-
-
-            Surface src2 = new Surface(sel.Width, sel.Height);
-            src2.CopySurface(src, sel);
 
             try
             {
@@ -250,7 +254,6 @@ namespace TRsDistortThis
             }
             finally
             {
-                src2.Dispose();
             }
         }
 
