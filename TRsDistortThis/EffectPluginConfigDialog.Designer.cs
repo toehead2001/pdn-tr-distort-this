@@ -53,32 +53,24 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.buttonCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancel.ForeColor = System.Drawing.Color.White;
             this.buttonCancel.Location = new System.Drawing.Point(416, 355);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(72, 37);
             this.buttonCancel.TabIndex = 1;
             this.buttonCancel.TabStop = false;
             this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = false;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.buttonOK.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.buttonOK.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonOK.ForeColor = System.Drawing.Color.White;
             this.buttonOK.Location = new System.Drawing.Point(416, 400);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(72, 40);
             this.buttonOK.TabIndex = 2;
             this.buttonOK.TabStop = false;
             this.buttonOK.Text = "OK";
-            this.buttonOK.UseVisualStyleBackColor = false;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // PreViewBMP
@@ -123,8 +115,6 @@
             this.AlphaBox.TabIndex = 4;
             this.AlphaBox.TabStop = false;
             this.AlphaBox.Text = "Alpha \r\nTransparent";
-            this.AlphaBox.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.AlphaBox.UseVisualStyleBackColor = true;
             this.AlphaBox.CheckedChanged += new System.EventHandler(this.Box_CheckedChanged);
             // 
             // PerspBox
@@ -139,30 +129,23 @@
             this.PerspBox.TabIndex = 5;
             this.PerspBox.TabStop = false;
             this.PerspBox.Text = "Forced \r\nPerspective";
-            this.PerspBox.UseVisualStyleBackColor = false;
             this.PerspBox.CheckedChanged += new System.EventHandler(this.Box_CheckedChanged);
             // 
             // RstButton
             // 
             this.RstButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.RstButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.RstButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RstButton.ForeColor = System.Drawing.Color.White;
             this.RstButton.Location = new System.Drawing.Point(417, 12);
             this.RstButton.Name = "RstButton";
             this.RstButton.Size = new System.Drawing.Size(72, 36);
             this.RstButton.TabIndex = 8;
             this.RstButton.TabStop = false;
             this.RstButton.Text = "Reset";
-            this.RstButton.UseVisualStyleBackColor = false;
             this.RstButton.Click += new System.EventHandler(this.RstButton_Click);
             // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.label1.BackColor = System.Drawing.Color.Navy;
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Yellow;
             this.label1.Location = new System.Drawing.Point(5, 401);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(402, 42);
@@ -198,7 +181,6 @@
             this.SeeThru.TabIndex = 11;
             this.SeeThru.TabStop = false;
             this.SeeThru.Text = "SeeThru";
-            this.SeeThru.UseVisualStyleBackColor = true;
             this.SeeThru.CheckedChanged += new System.EventHandler(this.SeeThru_CheckedChanged);
             // 
             // SWA
@@ -210,7 +192,6 @@
             this.SWA.TabIndex = 5;
             this.SWA.TabStop = false;
             this.SWA.Text = "Set Work Area";
-            this.SWA.UseVisualStyleBackColor = true;
             this.SWA.CheckedChanged += new System.EventHandler(this.SWA_CheckedChanged);
             // 
             // UAxis
@@ -219,7 +200,7 @@
             this.UAxis.LargeChange = 1;
             this.UAxis.Location = new System.Drawing.Point(412, 136);
             this.UAxis.Name = "UAxis";
-            this.UAxis.Size = new System.Drawing.Size(78, 9);
+            this.UAxis.Size = new System.Drawing.Size(78, 17);
             this.UAxis.TabIndex = 12;
             this.UAxis.Value = 100;
             this.UAxis.Scroll += new System.Windows.Forms.ScrollEventHandler(this.Axis_Scroll);
@@ -229,9 +210,9 @@
             // 
             this.VAxis.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.VAxis.LargeChange = 1;
-            this.VAxis.Location = new System.Drawing.Point(412, 168);
+            this.VAxis.Location = new System.Drawing.Point(412, 172);
             this.VAxis.Name = "VAxis";
-            this.VAxis.Size = new System.Drawing.Size(78, 9);
+            this.VAxis.Size = new System.Drawing.Size(78, 17);
             this.VAxis.TabIndex = 12;
             this.VAxis.Value = 100;
             this.VAxis.Scroll += new System.Windows.Forms.ScrollEventHandler(this.Axis_Scroll);
@@ -251,7 +232,7 @@
             // 
             this.VVal.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.VVal.AutoSize = true;
-            this.VVal.Location = new System.Drawing.Point(415, 155);
+            this.VVal.Location = new System.Drawing.Point(415, 159);
             this.VVal.Name = "VVal";
             this.VVal.Size = new System.Drawing.Size(73, 13);
             this.VVal.TabIndex = 13;
@@ -267,7 +248,6 @@
             this.MirrorX.TabIndex = 5;
             this.MirrorX.TabStop = false;
             this.MirrorX.Text = "Mirror X";
-            this.MirrorX.UseVisualStyleBackColor = false;
             // 
             // MirrorY
             // 
@@ -279,13 +259,10 @@
             this.MirrorY.TabIndex = 5;
             this.MirrorY.TabStop = false;
             this.MirrorY.Text = "Mirror Y";
-            this.MirrorY.UseVisualStyleBackColor = false;
             // 
             // EffectPluginConfigDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoSize = true;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(496, 452);
             this.Controls.Add(this.VVal);
@@ -305,11 +282,8 @@
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
             this.KeyPreview = true;
-            this.Location = new System.Drawing.Point(0, 0);
             this.MinimizeBox = true;
             this.Name = "EffectPluginConfigDialog";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Tag = "0";
             this.Activated += new System.EventHandler(this.EffectPluginConfigDialog_Activated);
             this.Deactivate += new System.EventHandler(this.EffectPluginConfigDialog_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EffectPluginConfigDialog_FormClosing);
