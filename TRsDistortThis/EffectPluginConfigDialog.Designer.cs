@@ -54,7 +54,7 @@
             // 
             this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(416, 355);
+            this.buttonCancel.Location = new System.Drawing.Point(416, 365);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(72, 37);
             this.buttonCancel.TabIndex = 1;
@@ -65,7 +65,7 @@
             // buttonOK
             // 
             this.buttonOK.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.buttonOK.Location = new System.Drawing.Point(416, 400);
+            this.buttonOK.Location = new System.Drawing.Point(416, 410);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(72, 40);
             this.buttonOK.TabIndex = 2;
@@ -79,9 +79,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PreViewBMP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.PreViewBMP.Controls.Add(this.cParam);
-            this.PreViewBMP.Location = new System.Drawing.Point(5, 12);
+            this.PreViewBMP.Location = new System.Drawing.Point(0, 0);
             this.PreViewBMP.Name = "PreViewBMP";
-            this.PreViewBMP.Size = new System.Drawing.Size(402, 380);
+            this.PreViewBMP.Size = new System.Drawing.Size(402, 402);
             this.PreViewBMP.TabIndex = 3;
             this.PreViewBMP.Paint += new System.Windows.Forms.PaintEventHandler(this.PreViewBMP_Paint);
             this.PreViewBMP.DoubleClick += new System.EventHandler(this.PreViewBMP_DoubleClick);
@@ -146,7 +146,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label1.Font = new System.Drawing.Font("Arial Narrow", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(5, 401);
+            this.label1.Location = new System.Drawing.Point(5, 411);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(402, 42);
             this.label1.TabIndex = 9;
@@ -264,7 +264,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(496, 452);
+            this.ClientSize = new System.Drawing.Size(496, 462);
             this.Controls.Add(this.VVal);
             this.Controls.Add(this.UVal);
             this.Controls.Add(this.VAxis);
