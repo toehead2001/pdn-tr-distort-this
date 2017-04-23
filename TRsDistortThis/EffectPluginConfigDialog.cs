@@ -346,23 +346,20 @@ namespace TRsDistortThis
 
         private Point getTweak(Point C, Point v)
         {
-            Point t = new Point((int)(((float)v.X * ConvertXY.X) - (float)C.X),
-                (int)(((float)v.Y * ConvertXY.Y) - (float)C.Y));
-
-            return t;
+            return new Point((int)(v.X * ConvertXY.X - C.X),
+                             (int)(v.Y * ConvertXY.Y - C.Y));
         }
 
         private Point getVcorner(Point C)
         {
-            Point t = new Point((int)((float)C.X / ConvertXY.X),
-                             (int)((float)C.Y / ConvertXY.Y));
-            return t;
+            return new Point((int)(C.X / ConvertXY.X),
+                             (int)(C.Y / ConvertXY.Y));
         }
 
         private Point getCorner(Point v, Point t)
         {
-            return new Point((int)((float)v.X * ConvertXY.X + t.X),
-                         (int)((float)v.Y * ConvertXY.Y + t.Y));
+            return new Point((int)(v.X * ConvertXY.X + t.X),
+                             (int)(v.Y * ConvertXY.Y + t.Y));
         }
 
         private void test(Point[] v)
@@ -414,12 +411,13 @@ namespace TRsDistortThis
 
         private Rectangle MyRect(Point[] y) //fix rotation
         {
-            Rectangle x = new Rectangle();
-            //prelim
-            x.Width = y[2].X - y[0].X;
-            x.Height = y[2].Y - y[0].Y;
-            x.Location = y[0];
-            return x;
+            return new Rectangle
+            {
+                //prelim
+                Width = y[2].X - y[0].X,
+                Height = y[2].Y - y[0].Y,
+                Location = y[0]
+            };
         }
 
         private bool CheckNode(int x, int y)
@@ -526,14 +524,7 @@ namespace TRsDistortThis
 
         private void SeeThru_CheckedChanged(object sender, EventArgs e)
         {
-            if (SeeThru.Checked)
-            {
-                this.Opacity = .4;
-            }
-            else
-            {
-                this.Opacity = 1;
-            }
+            this.Opacity = (SeeThru.Checked) ? 0.4 : 1.0;
         }
 
         private void EffectPluginConfigDialog_Deactivate(object sender, EventArgs e)
