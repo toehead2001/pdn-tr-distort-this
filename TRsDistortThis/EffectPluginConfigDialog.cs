@@ -20,7 +20,6 @@ namespace TRsDistortThis
         private bool SWAFlag = false;
         private int CornerSelect = -1;
         private Point[] tweak = new Point[4];
-        private Bitmap CheckerBG;
         private bool closeform = false;
         private bool initialize = true;
         bool nonNumberEntered = true;
@@ -112,16 +111,16 @@ namespace TRsDistortThis
             //=====make checkerboard
 
             PreViewBMP.BackgroundImage = new Bitmap(PreViewBMP.ClientRectangle.Width, PreViewBMP.ClientRectangle.Height);
-            CheckerBG = new Bitmap(PreViewBMP.ClientRectangle.Width, PreViewBMP.ClientRectangle.Height);
+            PreViewBMP.Image = new Bitmap(PreViewBMP.ClientRectangle.Width, PreViewBMP.ClientRectangle.Height);
             using (Surface tmp = new Surface(PreViewBMP.ClientRectangle.Size))
             {
                 ResamplingAlgorithm algorithm = (EffectSourceSurface.Width > tmp.Width || EffectSourceSurface.Height > tmp.Height) ? ResamplingAlgorithm.Fant : ResamplingAlgorithm.Bicubic;
                 tmp.FitSurface(algorithm, EffectSourceSurface);
-                using (Graphics g = Graphics.FromImage(PreViewBMP.BackgroundImage))
+                using (Graphics g = Graphics.FromImage(PreViewBMP.Image))
                     g.DrawImage(tmp.CreateAliasedBitmap(), 0, 0);
 
                 tmp.ClearWithCheckerboardPattern();
-                using (Graphics g = Graphics.FromImage(CheckerBG))
+                using (Graphics g = Graphics.FromImage(PreViewBMP.BackgroundImage))
                     g.DrawImage(tmp.CreateAliasedBitmap(), 0, 0);
             }
             GC.Collect();
@@ -148,7 +147,7 @@ namespace TRsDistortThis
             {
                 symmetry(e.Location);
                 moveflag = true;
-                DrawGraphics();
+                PreViewBMP.Refresh();
             }
         }
 
@@ -171,7 +170,7 @@ namespace TRsDistortThis
                 }
 
                 vCorners = MyBounds(anchor);
-                DrawGraphics();
+                PreViewBMP.Refresh();
                 RenderFlag = true;
 
 
@@ -201,7 +200,7 @@ namespace TRsDistortThis
                 {
                     RenderFlag = true;
                     symmetry(e.Location);
-                    DrawGraphics();
+                    PreViewBMP.Refresh();
                     FinishTokenUpdate();
                 }
 
@@ -247,31 +246,26 @@ namespace TRsDistortThis
                 anchor.Width = e.X - anchor.X;
                 anchor.Height = e.Y - anchor.Y;
 
-                DrawGraphics();
+                PreViewBMP.Refresh();
             }
             else if (moveflag)
             {
                 symmetry(e.Location);
 
-                DrawGraphics();
+                PreViewBMP.Refresh();
                 RenderFlag = true;
                 FinishTokenUpdate();
             }
 
         }
 
-        private void DrawGraphics()
+        private void PreViewBMP_Paint(object sender, PaintEventArgs e)
         {
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            e.Graphics.CompositingMode = CompositingMode.SourceOver;
 
-            Bitmap tmp = new Bitmap(PreViewBMP.ClientRectangle.Width, PreViewBMP.ClientRectangle.Height);
-            Graphics g = Graphics.FromImage(tmp);
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-            g.CompositingMode = CompositingMode.SourceOver;
-            g.DrawImage(CheckerBG, 0, 0);
-
-            g.DrawImage(PreViewBMP.BackgroundImage, PreViewBMP.ClientRectangle);
-            g.DrawRectangle(new Pen(Color.FromArgb(128, 0, 0, 255), 1), anchor);
-            g.DrawPolygon(new Pen(Color.FromArgb(128, 255, 0, 0), 3), vCorners);
+            e.Graphics.DrawRectangle(new Pen(Color.FromArgb(128, 0, 0, 255), 1), anchor);
+            e.Graphics.DrawPolygon(new Pen(Color.FromArgb(128, 255, 0, 0), 3), vCorners);
 
             //sort points
             Rectangle nAnchor = anchor;
@@ -285,34 +279,23 @@ namespace TRsDistortThis
                 nAnchor.Y += nAnchor.Height;
                 nAnchor.Height *= -1;
             }
-            if (SWAFlag) g.DrawRectangle(Pens.Blue, nAnchor);
+            if (SWAFlag)
+                e.Graphics.DrawRectangle(Pens.Blue, nAnchor);
             //==========================
 
             for (int i = 0; i < 4; i++)
             {
                 if (i == CornerSelect)
                 {
-                    g.FillEllipse(Brushes.LightBlue, new Rectangle(vCorners[i].X - 5, vCorners[i].Y - 5, 10, 10));
-                    g.DrawEllipse(Pens.DarkBlue, new Rectangle(vCorners[i].X - 5, vCorners[i].Y - 5, 10, 10));
+                    e.Graphics.FillEllipse(Brushes.LightBlue, new Rectangle(vCorners[i].X - 5, vCorners[i].Y - 5, 10, 10));
+                    e.Graphics.DrawEllipse(Pens.DarkBlue, new Rectangle(vCorners[i].X - 5, vCorners[i].Y - 5, 10, 10));
                 }
                 else
                 {
-                    g.FillEllipse(Brushes.White, new Rectangle(vCorners[i].X - 5, vCorners[i].Y - 5, 10, 10));
-                    g.DrawEllipse(Pens.Black, new Rectangle(vCorners[i].X - 5, vCorners[i].Y - 5, 10, 10));
+                    e.Graphics.FillEllipse(Brushes.White, new Rectangle(vCorners[i].X - 5, vCorners[i].Y - 5, 10, 10));
+                    e.Graphics.DrawEllipse(Pens.Black, new Rectangle(vCorners[i].X - 5, vCorners[i].Y - 5, 10, 10));
                 }
             }
-
-            g.Dispose();
-            //dbl bufffer
-            Graphics g2 = PreViewBMP.CreateGraphics();
-            g2.DrawImage(tmp, 0, 0);
-            g2.Dispose();
-            tmp.Dispose();
-        }
-
-        private void PreViewBMP_Paint(object sender, PaintEventArgs e)
-        {
-            DrawGraphics();
         }
 
         private void RstButton_Click(object sender, EventArgs e)
@@ -491,7 +474,7 @@ namespace TRsDistortThis
                 }
                 RenderFlag = true;
                 FinishTokenUpdate();
-                DrawGraphics();
+                PreViewBMP.Refresh();
             }
         }
 

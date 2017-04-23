@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
-            this.PreViewBMP = new System.Windows.Forms.Panel();
+            this.PreViewBMP = new System.Windows.Forms.PictureBox();
             this.cParam = new System.Windows.Forms.TextBox();
             this.AlphaBox = new System.Windows.Forms.CheckBox();
             this.PerspBox = new System.Windows.Forms.CheckBox();
@@ -47,6 +47,7 @@
             this.VVal = new System.Windows.Forms.Label();
             this.MirrorX = new System.Windows.Forms.CheckBox();
             this.MirrorY = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this.PreViewBMP)).BeginInit();
             this.PreViewBMP.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,6 +84,7 @@
             this.PreViewBMP.Name = "PreViewBMP";
             this.PreViewBMP.Size = new System.Drawing.Size(402, 402);
             this.PreViewBMP.TabIndex = 3;
+            this.PreViewBMP.TabStop = false;
             this.PreViewBMP.Paint += new System.Windows.Forms.PaintEventHandler(this.PreViewBMP_Paint);
             this.PreViewBMP.DoubleClick += new System.EventHandler(this.PreViewBMP_DoubleClick);
             this.PreViewBMP.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PreViewBMP_MouseDown);
@@ -281,12 +283,14 @@
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
             this.KeyPreview = true;
+            this.Location = new System.Drawing.Point(0, 0);
             this.MinimizeBox = true;
             this.Name = "EffectPluginConfigDialog";
             this.Activated += new System.EventHandler(this.EffectPluginConfigDialog_Activated);
             this.Deactivate += new System.EventHandler(this.EffectPluginConfigDialog_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EffectPluginConfigDialog_FormClosing);
             this.Load += new System.EventHandler(this.EffectPluginConfigDialog_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.PreViewBMP)).EndInit();
             this.PreViewBMP.ResumeLayout(false);
             this.PreViewBMP.PerformLayout();
             this.ResumeLayout(false);
@@ -297,7 +301,7 @@
         #endregion
 
         private System.Windows.Forms.Button buttonOK;
-        private System.Windows.Forms.Panel PreViewBMP;
+        private System.Windows.Forms.PictureBox PreViewBMP;
         private System.Windows.Forms.CheckBox AlphaBox;
         private System.Windows.Forms.CheckBox PerspBox;
         private System.Windows.Forms.Button RstButton;
