@@ -97,6 +97,8 @@ namespace TRsDistortThis
                 PointD C = new PointD(Corners[2].X, Corners[2].Y);
                 PointD D = new PointD(Corners[3].X, Corners[3].Y);
 
+                ColorBgra mix;
+
                 for (int y = rect.Top; y < rect.Bottom; y++)
                 {
                     if (IsCancelRequested) return;
@@ -141,44 +143,52 @@ namespace TRsDistortThis
                         uu = x1 / (x2 + x1) * sCorners.Width;// +sel.Left;
                         vv = y1 / (y2 + y1) * sCorners.Height;// +sel.Top;
 
-                        ColorBgra mix = src2.GetBilinearSampleClamped((float)uu, (float)vv);
-
-
-                        double farAC = (A.X - C.X) * (A.X - C.X) + (A.Y - C.Y) * (A.Y - C.Y);
-                        double farBD = (B.X - D.X) * (B.X - D.X) + (B.Y - D.Y) * (B.Y - D.Y);
-                        //Tranparency Check
-                        //checking hit
-                        if (farAC < farBD)
+                        if (!AlphaTrans)
                         {
-                            bool hit1 = (MyUtils.xproduct(P, A, B) < 0.0f);
-                            bool hit2 = (MyUtils.xproduct(P, B, C) < 0.0f);
-                            bool hit3 = (MyUtils.xproduct(P, C, A) < 0.0f);
-                            bool hitA = (hit1 == hit2) && (hit2 == hit3);
-
-                            hit1 = (MyUtils.xproduct(P, C, D) < 0.0f);
-                            hit2 = (MyUtils.xproduct(P, D, A) < 0.0f);
-                            hit3 = (MyUtils.xproduct(P, A, C) < 0.0f);
-                            bool hitB = (hit1 == hit2) && (hit2 == hit3);
-
-                            if (AlphaTrans && !hitA && !hitB)
-                                mix.A = 0;
+                            mix = src2.GetBilinearSampleClamped((float)uu, (float)vv);
                         }
                         else
                         {
-                            bool hit1 = (MyUtils.xproduct(P, B, C) < 0.0f);
-                            bool hit2 = (MyUtils.xproduct(P, C, D) < 0.0f);
-                            bool hit3 = (MyUtils.xproduct(P, D, B) < 0.0f);
-                            bool hitA = (hit1 == hit2) && (hit2 == hit3);
+                            double farAC = (A.X - C.X) * (A.X - C.X) + (A.Y - C.Y) * (A.Y - C.Y);
+                            double farBD = (B.X - D.X) * (B.X - D.X) + (B.Y - D.Y) * (B.Y - D.Y);
+                            //Tranparency Check
+                            //checking hit
+                            if (farAC < farBD)
+                            {
+                                bool hit1 = (MyUtils.xproduct(P, A, B) < 0.0f);
+                                bool hit2 = (MyUtils.xproduct(P, B, C) < 0.0f);
+                                bool hit3 = (MyUtils.xproduct(P, C, A) < 0.0f);
+                                bool hitA = (hit1 == hit2) && (hit2 == hit3);
 
-                            hit1 = (MyUtils.xproduct(P, D, A) < 0.0f);
-                            hit2 = (MyUtils.xproduct(P, A, B) < 0.0f);
-                            hit3 = (MyUtils.xproduct(P, B, D) < 0.0f);
-                            bool hitB = (hit1 == hit2) && (hit2 == hit3);
+                                hit1 = (MyUtils.xproduct(P, C, D) < 0.0f);
+                                hit2 = (MyUtils.xproduct(P, D, A) < 0.0f);
+                                hit3 = (MyUtils.xproduct(P, A, C) < 0.0f);
+                                bool hitB = (hit1 == hit2) && (hit2 == hit3);
 
-                            if (AlphaTrans && !hitA && !hitB)
-                                mix.A = 0;
+                                if (hitA || hitB)
+                                    mix = src2.GetBilinearSampleClamped((float)uu, (float)vv);
+                                else
+                                    mix = ColorBgra.Transparent;
+                            }
+                            else
+                            {
+                                bool hit1 = (MyUtils.xproduct(P, B, C) < 0.0f);
+                                bool hit2 = (MyUtils.xproduct(P, C, D) < 0.0f);
+                                bool hit3 = (MyUtils.xproduct(P, D, B) < 0.0f);
+                                bool hitA = (hit1 == hit2) && (hit2 == hit3);
+
+                                hit1 = (MyUtils.xproduct(P, D, A) < 0.0f);
+                                hit2 = (MyUtils.xproduct(P, A, B) < 0.0f);
+                                hit3 = (MyUtils.xproduct(P, B, D) < 0.0f);
+                                bool hitB = (hit1 == hit2) && (hit2 == hit3);
+
+                                if (hitA || hitB)
+                                    mix = src2.GetBilinearSampleClamped((float)uu, (float)vv);
+                                else
+                                    mix = ColorBgra.Transparent;
+                            }
                         }
-                        dst[x, y] = ColorBgra.FromBgra(mix.B, mix.G, mix.R, mix.A);
+                        dst[x, y] = mix;
                     }
                 }
             }
