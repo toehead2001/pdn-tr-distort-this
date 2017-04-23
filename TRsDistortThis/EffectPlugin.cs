@@ -8,78 +8,22 @@ namespace TRsDistortThis
 {
     public class PluginSupportInfo : IPluginSupportInfo
     {
-        public string Author
-        {
-            get
-            {
-                return "TechnoRobbo";
-            }
-        }
-        public string Copyright
-        {
-            get
-            {
-                return ((AssemblyCopyrightAttribute)base.GetType().Assembly.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)[0]).Copyright;
-            }
-        }
-
-        public string DisplayName
-        {
-            get
-            {
-                return ((AssemblyProductAttribute)base.GetType().Assembly.GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0]).Product;
-            }
-        }
-
-        public Version Version
-        {
-            get
-            {
-                return base.GetType().Assembly.GetName().Version;
-            }
-        }
-
-        public Uri WebsiteUri
-        {
-            get
-            {
-                return new Uri("http://www.technorobbo.com");
-            }
-        }
+        public string Author => "TechnoRobbo";
+        public string Copyright => ((AssemblyCopyrightAttribute)base.GetType().Assembly.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)[0]).Copyright;
+        public string DisplayName => ((AssemblyProductAttribute)base.GetType().Assembly.GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0]).Product;
+        public Version Version => base.GetType().Assembly.GetName().Version;
+        public Uri WebsiteUri => new Uri("http://www.technorobbo.com");
     }
 
     [PluginSupportInfo(typeof(PluginSupportInfo), DisplayName = "TR's DistortThis!")]
-
     public class EffectPlugin : Effect
     {
-        public static string StaticName
-        {
-            get
-            {
-                return "TR's DistortThis!";
-            }
-        }
-
-        public static Bitmap StaticImage
-        {
-            get
-            {
-                return Properties.Resources.icon;
-            }
-        }
-
-        public static string StaticSubMenuName
-        {
-            get
-            {
-                return SubmenuNames.Distort;  // Use for existing submenu
-            }
-        }
+        internal const string StaticName = "TR's DistortThis!";
+        private readonly static Bitmap StaticImage = Properties.Resources.icon;
 
         public EffectPlugin()
-            : base(StaticName, StaticImage, StaticSubMenuName, EffectFlags.Configurable)
+            : base(StaticName, StaticImage, SubmenuNames.Distort, EffectFlags.Configurable)
         {
-
         }
 
         public override EffectConfigDialog CreateConfigDialog()
