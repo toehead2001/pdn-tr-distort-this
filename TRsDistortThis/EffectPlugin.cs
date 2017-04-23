@@ -117,8 +117,7 @@ namespace TRsDistortThis
             for (int i = startIndex; i < startIndex + length; ++i)
             {
                 if (IsCancelRequested) break;
-                Rectangle rect = rois[i];
-                if (RenderFlag) myRender(dstArgs.Surface, srcArgs.Surface, rect);
+                if (RenderFlag) myRender(dstArgs.Surface, srcArgs.Surface, rois[i]);
             }
             passClass.StringID = "0";
         }
@@ -143,30 +142,23 @@ namespace TRsDistortThis
         private void myRender(Surface dst, Surface src, Rectangle rect)
         {
             if (IsCancelRequested) return;
-            PdnRegion selReg = EnvironmentParameters.GetSelection(src.Bounds);
-
-            Rectangle sel = sCorners;
 
             try
             {
-                double CenterX = ((sel.Right - sel.Left) / 2) + sel.Left;
-                double CenterY = ((sel.Bottom - sel.Top) / 2) + sel.Top;
                 double uu = 0;
                 double vv = 0;
-
 
                 PointD A = new PointD(Corners[0].X, Corners[0].Y);
                 PointD B = new PointD(Corners[1].X, Corners[1].Y);
                 PointD C = new PointD(Corners[2].X, Corners[2].Y);
                 PointD D = new PointD(Corners[3].X, Corners[3].Y);
 
-
-                for (double y = rect.Top; y < rect.Bottom; y++)
+                for (int y = rect.Top; y < rect.Bottom; y++)
                 {
-                    if (IsCancelRequested) break;
-                    for (double x = rect.Left; x < rect.Right; x++)
+                    if (IsCancelRequested) return;
+                    for (int x = rect.Left; x < rect.Right; x++)
                     {
-                        if (IsCancelRequested) break;
+                        if (IsCancelRequested) return;
 
                         //Clockwise 
                         PointD P = new PointD(x, y);
@@ -181,16 +173,14 @@ namespace TRsDistortThis
                         y1 = Math.Abs(y1);
                         y2 = Math.Abs(y2);
 
-
-                        double cx1 = MyUtils.Pythag(A, D);
-                        double cx2 = MyUtils.Pythag(B, C);
-                        double cy1 = MyUtils.Pythag(A, B);
-                        double cy2 = MyUtils.Pythag(D, C);
-
-
                         //Perspective Skew
                         if (Perspective)
                         {
+                            double cx1 = MyUtils.Pythag(A, D);
+                            double cx2 = MyUtils.Pythag(B, C);
+                            double cy1 = MyUtils.Pythag(A, B);
+                            double cy2 = MyUtils.Pythag(D, C);
+
                             double nx1 = x1 * cx2 / cx1;
                             double nx2 = x2 * cx1 / cx2;
                             double ny1 = y1 * cy2 / cy1;
@@ -201,16 +191,13 @@ namespace TRsDistortThis
                             x2 = nx2 * Uvalue + x2 - x2 * Uvalue;
                             y1 = ny1 * Vvalue + y1 - y1 * Vvalue;
                             y2 = ny2 * Vvalue + y2 - y2 * Vvalue;
-
-
                         }
 
                         //map texture
-                        uu = x1 / (x2 + x1) * sel.Width;// +sel.Left;
-                        vv = y1 / (y2 + y1) * sel.Height;// +sel.Top;
+                        uu = x1 / (x2 + x1) * sCorners.Width;// +sel.Left;
+                        vv = y1 / (y2 + y1) * sCorners.Height;// +sel.Top;
 
-                        Color mix = src2.GetBilinearSampleClamped((float)uu, (float)vv);
-                        byte CPA = mix.A;
+                        ColorBgra mix = src2.GetBilinearSampleClamped((float)uu, (float)vv);
 
 
                         double farAC = (A.X - C.X) * (A.X - C.X) + (A.Y - C.Y) * (A.Y - C.Y);
@@ -224,13 +211,13 @@ namespace TRsDistortThis
                             bool hit3 = (MyUtils.xproduct(P, C, A) < 0.0f);
                             bool hitA = (hit1 == hit2) && (hit2 == hit3);
 
-
                             hit1 = (MyUtils.xproduct(P, C, D) < 0.0f);
                             hit2 = (MyUtils.xproduct(P, D, A) < 0.0f);
                             hit3 = (MyUtils.xproduct(P, A, C) < 0.0f);
                             bool hitB = (hit1 == hit2) && (hit2 == hit3);
 
-                            if (AlphaTrans && !hitA && !hitB) { CPA = 0; }
+                            if (AlphaTrans && !hitA && !hitB)
+                                mix.A = 0;
                         }
                         else
                         {
@@ -239,16 +226,15 @@ namespace TRsDistortThis
                             bool hit3 = (MyUtils.xproduct(P, D, B) < 0.0f);
                             bool hitA = (hit1 == hit2) && (hit2 == hit3);
 
-
                             hit1 = (MyUtils.xproduct(P, D, A) < 0.0f);
                             hit2 = (MyUtils.xproduct(P, A, B) < 0.0f);
                             hit3 = (MyUtils.xproduct(P, B, D) < 0.0f);
                             bool hitB = (hit1 == hit2) && (hit2 == hit3);
 
-                            if (AlphaTrans && !hitA && !hitB) { CPA = 0; }
+                            if (AlphaTrans && !hitA && !hitB)
+                                mix.A = 0;
                         }
-                        dst[(int)x, (int)y] = ColorBgra.FromBgra(mix.B, mix.G, mix.R, CPA);
-
+                        dst[x, y] = ColorBgra.FromBgra(mix.B, mix.G, mix.R, mix.A);
                     }
                 }
             }
@@ -256,6 +242,5 @@ namespace TRsDistortThis
             {
             }
         }
-
     }
 }
