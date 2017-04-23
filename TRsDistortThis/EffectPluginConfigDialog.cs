@@ -264,37 +264,32 @@ namespace TRsDistortThis
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.CompositingMode = CompositingMode.SourceOver;
 
-            e.Graphics.DrawRectangle(new Pen(Color.FromArgb(128, 0, 0, 255), 1), anchor);
-            e.Graphics.DrawPolygon(new Pen(Color.FromArgb(128, 255, 0, 0), 3), vCorners);
+            using (Pen anchorPen = new Pen(Color.FromArgb(128, Color.Blue), 1))
+                e.Graphics.DrawRectangle(anchorPen, anchor);
+            using (Pen vCornersPen = new Pen(Color.FromArgb(128, Color.Red), 3))
+                e.Graphics.DrawPolygon(vCornersPen, vCorners);
 
-            //sort points
-            Rectangle nAnchor = anchor;
-            if (nAnchor.Width < 0)
-            {
-                nAnchor.X += nAnchor.Width;
-                nAnchor.Width *= -1;
-            }
-            if (nAnchor.Height < 0)
-            {
-                nAnchor.Y += nAnchor.Height;
-                nAnchor.Height *= -1;
-            }
             if (SWAFlag)
+            {
+                Rectangle nAnchor = anchor;
+                if (nAnchor.Width < 0)
+                {
+                    nAnchor.X += nAnchor.Width;
+                    nAnchor.Width *= -1;
+                }
+                if (nAnchor.Height < 0)
+                {
+                    nAnchor.Y += nAnchor.Height;
+                    nAnchor.Height *= -1;
+                }
                 e.Graphics.DrawRectangle(Pens.Blue, nAnchor);
-            //==========================
+            }
 
             for (int i = 0; i < 4; i++)
             {
-                if (i == CornerSelect)
-                {
-                    e.Graphics.FillEllipse(Brushes.LightBlue, new Rectangle(vCorners[i].X - 5, vCorners[i].Y - 5, 10, 10));
-                    e.Graphics.DrawEllipse(Pens.DarkBlue, new Rectangle(vCorners[i].X - 5, vCorners[i].Y - 5, 10, 10));
-                }
-                else
-                {
-                    e.Graphics.FillEllipse(Brushes.White, new Rectangle(vCorners[i].X - 5, vCorners[i].Y - 5, 10, 10));
-                    e.Graphics.DrawEllipse(Pens.Black, new Rectangle(vCorners[i].X - 5, vCorners[i].Y - 5, 10, 10));
-                }
+                Rectangle nubPos = new Rectangle(vCorners[i].X - 5, vCorners[i].Y - 5, 10, 10);
+                e.Graphics.FillEllipse(i == CornerSelect ? Brushes.LightBlue : Brushes.White, nubPos);
+                e.Graphics.DrawEllipse(i == CornerSelect ? Pens.DarkBlue : Pens.Black, nubPos);
             }
         }
 
