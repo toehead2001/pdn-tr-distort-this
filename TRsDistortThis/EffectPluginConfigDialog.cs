@@ -557,7 +557,8 @@ namespace TRsDistortThis
         private void SWA_CheckedChanged(object sender, EventArgs e)
         {
             SWAFlag = false;
-            if (SWA.Checked) RstButton_Click(sender, e);
+            if (SWA.Checked)
+                ReZet(true);
         }
 
         private void Axis_Scroll(object sender, ScrollEventArgs e)
