@@ -97,7 +97,6 @@
             this.cParam.TabIndex = 0;
             this.cParam.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.cParam.Visible = false;
-            this.cParam.TextChanged += new System.EventHandler(this.cParam_TextChanged);
             this.cParam.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cParam_KeyDown);
             this.cParam.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cParam_KeyPress);
             this.cParam.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cParam_KeyUp);

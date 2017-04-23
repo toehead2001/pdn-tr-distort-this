@@ -604,11 +604,6 @@ namespace TRsDistortThis
             if (nonNumberEntered) e.Handled = true;
         }
 
-        private void cParam_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void cParam_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode.Equals(Keys.Enter))
