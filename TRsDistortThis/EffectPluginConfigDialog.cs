@@ -22,7 +22,6 @@ namespace TRsDistortThis
         private int CornerSelect = -1;
         private Point[] tweak = new Point[4];
         private Bitmap CheckerBG;
-        private float ratio;
         private bool closeform = false;
         private bool initialize = true;
         bool nonNumberEntered = true;
@@ -97,36 +96,40 @@ namespace TRsDistortThis
 
         private void EffectPluginConfigDialog_Load(object sender, EventArgs e)
         {
-            Surface srf = EffectSourceSurface;
-            PreViewBMP.BackgroundImage = srf.CreateAliasedBitmap();
-            ratio = (float)PreViewBMP.BackgroundImage.Height / PreViewBMP.BackgroundImage.Width;
+            float ratio = (float)EffectSourceSurface.Height / EffectSourceSurface.Width;
 
             if (ratio > 1)
             {
-                float tx = (float)PreViewBMP.ClientRectangle.Width / ratio;
-                float pos = ((float)PreViewBMP.ClientRectangle.Width - tx) / 2;
-                PreViewBMP.Bounds = new Rectangle((int)pos, 0, (int)tx, PreViewBMP.Height);
+                int tx = (int)Math.Round(PreViewBMP.ClientRectangle.Width / ratio);
+                int pos = (int)Math.Round((PreViewBMP.ClientRectangle.Width - tx) / 2f);
+                PreViewBMP.Bounds = new Rectangle(pos, 0, tx, PreViewBMP.Height);
             }
             else
             {
-                float ty = (float)PreViewBMP.ClientRectangle.Height * ratio;
-                float pos = ((float)PreViewBMP.ClientRectangle.Height - ty) / 2;
-                PreViewBMP.Bounds = new Rectangle(0, (int)pos, PreViewBMP.ClientRectangle.Width, (int)ty);
+                int ty = (int)Math.Round(PreViewBMP.ClientRectangle.Height * ratio);
+                int pos = (int)Math.Round((PreViewBMP.ClientRectangle.Height - ty) / 2f);
+                PreViewBMP.Bounds = new Rectangle(0, pos, PreViewBMP.ClientRectangle.Width, ty);
             }
             //=====make checkerboard
 
+            PreViewBMP.BackgroundImage = new Bitmap(PreViewBMP.ClientRectangle.Width, PreViewBMP.ClientRectangle.Height);
             CheckerBG = new Bitmap(PreViewBMP.ClientRectangle.Width, PreViewBMP.ClientRectangle.Height);
-            using (Surface tmp = new Surface(PreViewBMP.ClientRectangle.Width, PreViewBMP.ClientRectangle.Height))
+            using (Surface tmp = new Surface(PreViewBMP.ClientRectangle.Size))
             {
+                ResamplingAlgorithm algorithm = (EffectSourceSurface.Width > tmp.Width || EffectSourceSurface.Height > tmp.Height) ? ResamplingAlgorithm.Fant : ResamplingAlgorithm.Bicubic;
+                tmp.FitSurface(algorithm, EffectSourceSurface);
+                using (Graphics g = Graphics.FromImage(PreViewBMP.BackgroundImage))
+                    g.DrawImage(tmp.CreateAliasedBitmap(), 0, 0);
+
                 tmp.ClearWithCheckerboardPattern();
-                Bitmap b = new RenderArgs(tmp).Bitmap;
-                using (Graphics g = Graphics.FromImage(CheckerBG)) g.DrawImage(b, 0, 0);
+                using (Graphics g = Graphics.FromImage(CheckerBG))
+                    g.DrawImage(tmp.CreateAliasedBitmap(), 0, 0);
             }
             GC.Collect();
 
             this.Opacity = 1;
-            ConvertXY.X = (float)PreViewBMP.BackgroundImage.Width / PreViewBMP.ClientRectangle.Width;
-            ConvertXY.Y = (float)PreViewBMP.BackgroundImage.Height / PreViewBMP.ClientRectangle.Height;
+            ConvertXY.X = (float)EffectSourceSurface.Width / PreViewBMP.ClientRectangle.Width;
+            ConvertXY.Y = (float)EffectSourceSurface.Height / PreViewBMP.ClientRectangle.Height;
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             this.Text = EffectPlugin.StaticName + " ver. " + version.Major + "." + version.Minor + "." + version.Build;
             KillSicky.AllowAccessibilityShortcutKeys(false);
