@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -137,7 +136,6 @@ namespace TRsDistortThis
             ReZet(initialize);
         }
 
-
         private void PreViewBMP_MouseDown(object sender, MouseEventArgs e)
         {
             cParam.Visible = false;
@@ -152,7 +150,6 @@ namespace TRsDistortThis
                 moveflag = true;
                 DrawGraphics();
             }
-
         }
 
         private void PreViewBMP_MouseUp(object sender, MouseEventArgs e)
@@ -195,12 +192,10 @@ namespace TRsDistortThis
                 }
 
                 FinishTokenUpdate();
-
             }
             else if (moveflag)
             {
                 moveflag = false;
-
 
                 if (CornerSelect != -1)
                 {
@@ -241,9 +236,8 @@ namespace TRsDistortThis
                 vCorners[sym[CornerSelect]] = new Point(e.X, my);
             }
 
-            for (int i = 0; i < 4; i++) Corners[i]= getCorner(vCorners[i], Point.Empty);
-            tweak =new Point[4];
-
+            for (int i = 0; i < 4; i++) Corners[i] = getCorner(vCorners[i], Point.Empty);
+            tweak = new Point[4];
         }
 
         private void PreViewBMP_MouseMove(object sender, MouseEventArgs e)
@@ -257,7 +251,6 @@ namespace TRsDistortThis
             }
             else if (moveflag)
             {
-
                 symmetry(e.Location);
 
                 DrawGraphics();
@@ -325,8 +318,8 @@ namespace TRsDistortThis
         private void RstButton_Click(object sender, EventArgs e)
         {
             ReZet(true);
-
         }
+
         private void ReZet(bool newSet)
         {
             if (newSet)
@@ -349,7 +342,6 @@ namespace TRsDistortThis
             PreViewBMP.Invalidate();
             FinishTokenUpdate();
             //test(Corners);
-
         }
 
         private Point getTweak(Point C, Point v)
@@ -359,12 +351,14 @@ namespace TRsDistortThis
 
             return t;
         }
+
         private Point getVcorner(Point C)
         {
             Point t = new Point((int)((float)C.X / ConvertXY.X),
                              (int)((float)C.Y / ConvertXY.Y));
             return t;
         }
+
         private Point getCorner(Point v, Point t)
         {
             return new Point((int)((float)v.X * ConvertXY.X + t.X),
@@ -439,10 +433,10 @@ namespace TRsDistortThis
                     results = true;
                     CornerSelect = i;
                 }
-
             }
             return results;
         }
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             switch (keyData)
@@ -460,6 +454,7 @@ namespace TRsDistortThis
 
             return true;
         }
+
         private void HandleKeys(Keys e)
         {
             if (CornerSelect != -1)
@@ -499,7 +494,6 @@ namespace TRsDistortThis
                 RenderFlag = true;
                 FinishTokenUpdate();
                 DrawGraphics();
-
             }
         }
 
@@ -519,7 +513,6 @@ namespace TRsDistortThis
             {
                 Busy.ForeColor = Color.DarkGray;
             }
-
         }
 
         private void EffectPluginConfigDialog_FormClosing(object sender, FormClosingEventArgs e)
@@ -529,7 +522,6 @@ namespace TRsDistortThis
                 closeform = true;
                 e.Cancel = true;
             }
-
         }
 
         private void SeeThru_CheckedChanged(object sender, EventArgs e)
@@ -586,8 +578,6 @@ namespace TRsDistortThis
         private void cParam_KeyDown(object sender, KeyEventArgs e)
         {
             nonNumberEntered = false;
-
-
             foreach (Keys k in keyCheck)
             {
                 if (e.KeyCode.Equals(k))
@@ -597,7 +587,6 @@ namespace TRsDistortThis
                 }
             }
             nonNumberEntered = true;
-
         }
 
         private void cParam_KeyPress(object sender, KeyPressEventArgs e)
@@ -609,7 +598,6 @@ namespace TRsDistortThis
         {
             if (e.KeyCode.Equals(Keys.Enter))
             {
-
                 string[] s = cParam.Text.Split(' ');
                 int x, y;
                 if (s.Length > 1 && Int32.TryParse(s[0], out x) && Int32.TryParse(s[1], out y))
@@ -626,7 +614,6 @@ namespace TRsDistortThis
                 }
                 cParam.Visible = false;
             }
-
         }
 
         private void PreViewBMP_DoubleClick(object sender, EventArgs e)
@@ -640,6 +627,5 @@ namespace TRsDistortThis
             cParam.Visible = true;
             cParam.Focus();
         }
-
     }
 }

@@ -61,7 +61,7 @@ namespace TRsDistortThis
             set;
         }
 
-        public EffectPluginConfigToken(Point[] corners, Rectangle scorners,Rectangle anchor, Point[] vcorners,
+        public EffectPluginConfigToken(Point[] corners, Rectangle scorners, Rectangle anchor, Point[] vcorners,
             Point[] tweak, bool alphatrans, bool perspective, bool renderflag,
             int uvalue, int vvalue, bool init)
             : base()
@@ -72,7 +72,7 @@ namespace TRsDistortThis
             this.Tweak = tweak;
             this.AlphaTrans = alphatrans;
             this.Perspective = perspective;
-            this.RenderFlag=renderflag;
+            this.RenderFlag = renderflag;
             this.UValue = uvalue;
             this.VValue = vvalue;
             this.initialize = init;
@@ -91,7 +91,7 @@ namespace TRsDistortThis
             this.RenderFlag = copyMe.RenderFlag;
             this.UValue = copyMe.UValue;
             this.VValue = copyMe.VValue;
-            this.initialize= copyMe.initialize;
+            this.initialize = copyMe.initialize;
             this.Anchor = copyMe.Anchor;
         }
 
