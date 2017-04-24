@@ -278,6 +278,18 @@ namespace TRsDistortThis
             ReZet(true);
         }
 
+        private void ResetNubsButton_Click(object sender, EventArgs e)
+        {
+            vCorners = MyBounds(anchor);
+            PreViewBMP.Refresh();
+
+            for (int i = 0; i < 4; i++)
+            {
+                Corners[i] = getCorner(vCorners[i], tweak[i]).Clamp(EffectSourceSurface.Bounds);
+            }
+            FinishTokenUpdate();
+        }
+
         private void ReZet(bool newSet)
         {
             if (newSet)
@@ -324,7 +336,6 @@ namespace TRsDistortThis
             //test
             string s = String.Empty;
             foreach (Point i in v) s += " " + i.ToString();
-            label1.Text = s;
         }
 
         private void Box_CheckedChanged(object sender, EventArgs e)
