@@ -47,10 +47,10 @@ namespace TRsDistortThis
             return p;
         }
 
-        internal static Point clampP(Point p, Rectangle r)
+        internal static Point Clamp(this Point p, Rectangle bounds)
         {
-            p.X = (p.X < r.Left) ? r.Left : (p.X > (r.Left + r.Width - 1)) ? (r.Left + r.Width - 1) : p.X;
-            p.Y = (p.Y < r.Top) ? r.Top : (p.Y > r.Top + r.Height - 1) ? (r.Top + r.Height - 1) : p.Y;
+            p.X = (p.X < bounds.Left) ? bounds.Left : (p.X > (bounds.Left + bounds.Width - 1)) ? (bounds.Left + bounds.Width - 1) : p.X;
+            p.Y = (p.Y < bounds.Top) ? bounds.Top : (p.Y > bounds.Top + bounds.Height - 1) ? (bounds.Top + bounds.Height - 1) : p.Y;
             return p;
         }
 

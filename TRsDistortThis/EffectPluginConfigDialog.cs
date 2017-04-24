@@ -178,7 +178,7 @@ namespace TRsDistortThis
                 {
                     Point thisPoint = getCorner(vCorners[i], tweak[i]);
 
-                    thisPoint = MyUtils.clampP(thisPoint, EffectSourceSurface.Bounds);
+                    thisPoint = MyUtils.Clamp(thisPoint, EffectSourceSurface.Bounds);
                     Corners[i] = thisPoint;
 
                 }
@@ -209,30 +209,29 @@ namespace TRsDistortThis
 
         private void symmetry(Point e)
         {
-            vCorners[CornerSelect] = MyUtils.clampP(e,
-                    new Rectangle(0, 0, PreViewBMP.ClientRectangle.Width, PreViewBMP.ClientRectangle.Height));
+            vCorners[CornerSelect] = e.Clamp(PreViewBMP.ClientRectangle);
+
             Point pmid = MyUtils.Centroid(vCorners);
             int mx = pmid.X + (pmid.X - e.X);
             int my = pmid.Y + (pmid.Y - e.Y);
             if (MirrorX.Checked && MirrorY.Checked)
             {
                 int[] sym = { 1, 0, 3, 2 };
-                vCorners[sym[CornerSelect]] = new Point(mx, e.Y);
+                vCorners[sym[CornerSelect]] = new Point(mx, e.Y).Clamp(PreViewBMP.ClientRectangle);
                 int[] sym2 = { 3, 2, 1, 0 };
-                vCorners[sym2[CornerSelect]] = new Point(e.X, my);
+                vCorners[sym2[CornerSelect]] = new Point(e.X, my).Clamp(PreViewBMP.ClientRectangle);
                 int[] sym3 = { 2, 3, 0, 1 };
-                vCorners[sym3[CornerSelect]] = new Point(mx, my);
-
+                vCorners[sym3[CornerSelect]] = new Point(mx, my).Clamp(PreViewBMP.ClientRectangle);
             }
             else if (MirrorX.Checked)
             {
                 int[] sym = { 1, 0, 3, 2 };
-                vCorners[sym[CornerSelect]] = new Point(mx, e.Y);
+                vCorners[sym[CornerSelect]] = new Point(mx, e.Y).Clamp(PreViewBMP.ClientRectangle);
             }
             else if (MirrorY.Checked)
             {
                 int[] sym = { 3, 2, 1, 0 };
-                vCorners[sym[CornerSelect]] = new Point(e.X, my);
+                vCorners[sym[CornerSelect]] = new Point(e.X, my).Clamp(PreViewBMP.ClientRectangle);
             }
 
             for (int i = 0; i < 4; i++) Corners[i] = getCorner(vCorners[i], Point.Empty);
@@ -467,7 +466,7 @@ namespace TRsDistortThis
 
                 if (tweaked)
                 {
-                    Corners[CornerSelect] = MyUtils.clampP(Corners[CornerSelect], EffectSourceSurface.Bounds);
+                    Corners[CornerSelect] = MyUtils.Clamp(Corners[CornerSelect], EffectSourceSurface.Bounds);
                     vCorners[CornerSelect] = getVcorner(Corners[CornerSelect]);
                     tweak[CornerSelect] = getTweak(Corners[CornerSelect], vCorners[CornerSelect]);
 
