@@ -265,14 +265,9 @@ namespace TRsDistortThis
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.CompositingMode = CompositingMode.SourceOver;
 
-            using (Pen anchorPen = new Pen(Color.FromArgb(128, Color.Blue), 1))
-                e.Graphics.DrawRectangle(anchorPen, anchor);
-            using (Pen vCornersPen = new Pen(Color.FromArgb(128, Color.Red), 3))
-                e.Graphics.DrawPolygon(vCornersPen, vCorners);
-
+            Rectangle nAnchor = anchor;
             if (SWAFlag)
             {
-                Rectangle nAnchor = anchor;
                 if (nAnchor.Width < 0)
                 {
                     nAnchor.X += nAnchor.Width;
@@ -283,7 +278,16 @@ namespace TRsDistortThis
                     nAnchor.Y += nAnchor.Height;
                     nAnchor.Height *= -1;
                 }
-                e.Graphics.DrawRectangle(Pens.Blue, nAnchor);
+            }
+            nAnchor.Width--;
+            nAnchor.Height--;
+            using (Pen anchorPen = new Pen((SWAFlag) ? Color.Blue : Color.FromArgb(128, Color.Blue), 1))
+                e.Graphics.DrawRectangle(anchorPen, nAnchor);
+
+            using (Pen vCornersPen = new Pen(Color.FromArgb(128, Color.Red), 3))
+            {
+                vCornersPen.LineJoin = LineJoin.Bevel;
+                e.Graphics.DrawPolygon(vCornersPen, vCorners);
             }
 
             for (int i = 0; i < 4; i++)
