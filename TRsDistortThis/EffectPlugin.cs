@@ -63,11 +63,6 @@ namespace TRsDistortThis
             }
         }
 
-        protected override void OnDispose(bool disposing)
-        {
-            //NOP
-        }
-
 
         Point[] Corners = new Point[4];
         Rectangle sCorners = new Rectangle();
