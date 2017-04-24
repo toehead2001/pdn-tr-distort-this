@@ -54,13 +54,13 @@ namespace TRsDistortThis
             return p;
         }
 
-        internal static Rectangle clampR(Rectangle p, Rectangle r)
+        internal static Rectangle Clamp(this Rectangle rect, Rectangle bounds)
         {
-            int left = (p.X < r.Left) ? r.Left : (p.X > r.Right) ? r.Right : p.X;
-            int top = (p.Y < r.Top) ? r.Top : (p.Y > r.Bottom) ? r.Bottom : p.Y;
-            int right = (p.Right < r.Left) ? r.Left : (p.Right > r.Right) ? r.Right : p.Right;
-            int bottom = (p.Bottom < r.Top) ? r.Top : (p.Bottom > r.Bottom) ? r.Bottom : p.Bottom;
-            return new Rectangle(left, top, right - left, bottom - top);
+            int left = (rect.Left < bounds.Left) ? bounds.Left : (rect.Left > bounds.Right) ? bounds.Right : rect.Left;
+            int top = (rect.Top < bounds.Top) ? bounds.Top : (rect.Top > bounds.Bottom) ? bounds.Bottom : rect.Top;
+            int right = (rect.Right < bounds.Left) ? bounds.Left : (rect.Right > bounds.Right) ? bounds.Right : rect.Right;
+            int bottom = (rect.Bottom < bounds.Top) ? bounds.Top : (rect.Bottom > bounds.Bottom) ? bounds.Bottom : rect.Bottom;
+            return Rectangle.FromLTRB(left, top, right, bottom);
         }
 
         internal static double Pythag(double p1, double p2)

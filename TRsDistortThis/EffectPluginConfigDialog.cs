@@ -245,6 +245,7 @@ namespace TRsDistortThis
             {
                 anchor.Width = e.X - anchor.X;
                 anchor.Height = e.Y - anchor.Y;
+                anchor = anchor.Clamp(PreViewBMP.ClientRectangle);
 
                 PreViewBMP.Refresh();
             }
