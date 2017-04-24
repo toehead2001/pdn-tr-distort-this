@@ -126,8 +126,8 @@ namespace TRsDistortThis
             GC.Collect();
 
             this.Opacity = 1;
-            ConvertXY.X = (float)EffectSourceSurface.Width / PreViewBMP.ClientRectangle.Width;
-            ConvertXY.Y = (float)EffectSourceSurface.Height / PreViewBMP.ClientRectangle.Height;
+            ConvertXY.X = (float)(EffectSourceSurface.Width - 1) / (PreViewBMP.ClientRectangle.Width - 1);
+            ConvertXY.Y = (float)(EffectSourceSurface.Height - 1) / (PreViewBMP.ClientRectangle.Height - 1);
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             this.Text = EffectPlugin.StaticName + " ver. " + version.Major + "." + version.Minor + "." + version.Build;
             KillSicky.AllowAccessibilityShortcutKeys(false);
