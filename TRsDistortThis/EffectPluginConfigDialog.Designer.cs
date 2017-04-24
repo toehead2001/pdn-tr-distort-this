@@ -93,9 +93,9 @@
             // 
             // cParam
             // 
-            this.cParam.Location = new System.Drawing.Point(171, 169);
+            this.cParam.Location = new System.Drawing.Point(150, 190);
             this.cParam.Name = "cParam";
-            this.cParam.Size = new System.Drawing.Size(49, 20);
+            this.cParam.Size = new System.Drawing.Size(100, 20);
             this.cParam.TabIndex = 0;
             this.cParam.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.cParam.Visible = false;
