@@ -154,11 +154,7 @@ namespace TRsDistortThis
 
                 for (int i = 0; i < 4; i++)
                 {
-                    Point thisPoint = getCorner(vCorners[i], tweak[i]);
-
-                    thisPoint = MyUtils.Clamp(thisPoint, EffectSourceSurface.Bounds);
-                    Corners[i] = thisPoint;
-
+                    Corners[i] = getCorner(vCorners[i], tweak[i]).Clamp(EffectSourceSurface.Bounds);
                 }
                 sCorners = MyRect(Corners);
                 if (sCorners.Width <= 0 || sCorners.Height <= 0)
@@ -451,10 +447,9 @@ namespace TRsDistortThis
 
                 if (tweaked)
                 {
-                    Corners[CornerSelect] = MyUtils.Clamp(Corners[CornerSelect], EffectSourceSurface.Bounds);
+                    Corners[CornerSelect] = Corners[CornerSelect].Clamp(EffectSourceSurface.Bounds);
                     vCorners[CornerSelect] = getVcorner(Corners[CornerSelect]);
                     tweak[CornerSelect] = getTweak(Corners[CornerSelect], vCorners[CornerSelect]);
-
                 }
                 FinishTokenUpdate();
                 PreViewBMP.Refresh();
