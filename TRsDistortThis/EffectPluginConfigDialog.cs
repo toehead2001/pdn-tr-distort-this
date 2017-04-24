@@ -111,7 +111,6 @@ namespace TRsDistortThis
             ConvertXY.Y = (float)(EffectSourceSurface.Height - 1) / (PreViewBMP.ClientRectangle.Height - 1);
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             this.Text = EffectPlugin.StaticName + " ver. " + version.Major + "." + version.Minor + "." + version.Build;
-            KillSicky.AllowAccessibilityShortcutKeys(false);
             ReZet(initialize);
         }
 
@@ -449,11 +448,6 @@ namespace TRsDistortThis
                 FinishTokenUpdate();
                 PreViewBMP.Refresh();
             }
-        }
-
-        private void EffectPluginConfigDialog_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            KillSicky.AllowAccessibilityShortcutKeys(true);
         }
 
         private void SeeThru_CheckedChanged(object sender, EventArgs e)

@@ -264,7 +264,6 @@
             this.Location = new System.Drawing.Point(0, 0);
             this.MinimizeBox = true;
             this.Name = "EffectPluginConfigDialog";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EffectPluginConfigDialog_FormClosing);
             this.Load += new System.EventHandler(this.EffectPluginConfigDialog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PreViewBMP)).EndInit();
             this.PreViewBMP.ResumeLayout(false);
