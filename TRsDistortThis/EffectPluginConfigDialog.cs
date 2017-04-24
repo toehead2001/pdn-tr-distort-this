@@ -112,7 +112,6 @@ namespace TRsDistortThis
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             this.Text = EffectPlugin.StaticName + " ver. " + version.Major + "." + version.Minor + "." + version.Build;
             KillSicky.AllowAccessibilityShortcutKeys(false);
-            timer1.Enabled = true;
             ReZet(initialize);
         }
 
@@ -452,38 +451,14 @@ namespace TRsDistortThis
             }
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (passClass.StringID == "1")
-            {
-                Busy.ForeColor = Color.Red;
-            }
-            else
-            {
-                Busy.ForeColor = Color.DarkGray;
-            }
-        }
-
         private void EffectPluginConfigDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
             KillSicky.AllowAccessibilityShortcutKeys(true);
-            if (timer1.Enabled)
-                timer1.Enabled = false;
         }
 
         private void SeeThru_CheckedChanged(object sender, EventArgs e)
         {
             this.Opacity = (SeeThru.Checked) ? 0.4 : 1.0;
-        }
-
-        private void EffectPluginConfigDialog_Deactivate(object sender, EventArgs e)
-        {
-            timer1.Enabled = false;
-        }
-
-        private void EffectPluginConfigDialog_Activated(object sender, EventArgs e)
-        {
-            timer1.Enabled = true;
         }
 
         private void SWA_CheckedChanged(object sender, EventArgs e)

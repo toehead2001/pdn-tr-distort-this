@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
             this.PreViewBMP = new System.Windows.Forms.PictureBox();
@@ -37,8 +36,6 @@
             this.PerspBox = new System.Windows.Forms.CheckBox();
             this.RstButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.Busy = new System.Windows.Forms.Label();
             this.SeeThru = new System.Windows.Forms.CheckBox();
             this.SWA = new System.Windows.Forms.CheckBox();
             this.UAxis = new System.Windows.Forms.HScrollBar();
@@ -154,23 +151,6 @@
     ", DoubleClick to Edit";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // Busy
-            // 
-            this.Busy.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.Busy.BackColor = System.Drawing.Color.Black;
-            this.Busy.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Busy.ForeColor = System.Drawing.Color.DimGray;
-            this.Busy.Location = new System.Drawing.Point(411, 286);
-            this.Busy.Name = "Busy";
-            this.Busy.Size = new System.Drawing.Size(82, 26);
-            this.Busy.TabIndex = 10;
-            this.Busy.Text = "BUSY";
-            this.Busy.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // SeeThru
             // 
             this.SeeThru.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -270,7 +250,6 @@
             this.Controls.Add(this.VAxis);
             this.Controls.Add(this.UAxis);
             this.Controls.Add(this.SeeThru);
-            this.Controls.Add(this.Busy);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.RstButton);
             this.Controls.Add(this.SWA);
@@ -285,8 +264,6 @@
             this.Location = new System.Drawing.Point(0, 0);
             this.MinimizeBox = true;
             this.Name = "EffectPluginConfigDialog";
-            this.Activated += new System.EventHandler(this.EffectPluginConfigDialog_Activated);
-            this.Deactivate += new System.EventHandler(this.EffectPluginConfigDialog_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EffectPluginConfigDialog_FormClosing);
             this.Load += new System.EventHandler(this.EffectPluginConfigDialog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PreViewBMP)).EndInit();
@@ -305,8 +282,6 @@
         private System.Windows.Forms.CheckBox PerspBox;
         private System.Windows.Forms.Button RstButton;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label Busy;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.CheckBox SeeThru;
         private System.Windows.Forms.CheckBox SWA;
         private System.Windows.Forms.HScrollBar UAxis;

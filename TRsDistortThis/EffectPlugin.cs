@@ -56,13 +56,11 @@ namespace TRsDistortThis
         public override void Render(EffectConfigToken parameters, RenderArgs dstArgs, RenderArgs srcArgs, Rectangle[] rois, int startIndex, int length)
         {
             if (IsCancelRequested) return;
-            passClass.StringID = "1";
             for (int i = startIndex; i < startIndex + length; ++i)
             {
                 if (IsCancelRequested) break;
                 myRender(dstArgs.Surface, srcArgs.Surface, rois[i]);
             }
-            passClass.StringID = "0";
         }
 
         protected override void OnDispose(bool disposing)

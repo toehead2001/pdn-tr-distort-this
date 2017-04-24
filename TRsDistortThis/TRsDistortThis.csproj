@@ -64,7 +64,6 @@
     <Compile Include="EffectPluginToken.cs" />
     <Compile Include="KillStickyKeys.cs" />
     <Compile Include="MyUtils.cs" />
-    <Compile Include="passClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
