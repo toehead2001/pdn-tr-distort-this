@@ -329,20 +329,20 @@ namespace TRsDistortThis
 
         private Point getTweak(Point C, Point v)
         {
-            return new Point((int)(v.X * ConvertXY.X - C.X),
-                             (int)(v.Y * ConvertXY.Y - C.Y));
+            return new Point((int)Math.Round(v.X * ConvertXY.X - C.X),
+                             (int)Math.Round(v.Y * ConvertXY.Y - C.Y));
         }
 
         private Point getVcorner(Point C)
         {
-            return new Point((int)(C.X / ConvertXY.X),
-                             (int)(C.Y / ConvertXY.Y));
+            return new Point((int)Math.Round(C.X / ConvertXY.X),
+                             (int)Math.Round(C.Y / ConvertXY.Y));
         }
 
         private Point getCorner(Point v, Point t)
         {
-            return new Point((int)(v.X * ConvertXY.X + t.X),
-                             (int)(v.Y * ConvertXY.Y + t.Y));
+            return new Point((int)Math.Round(v.X * ConvertXY.X + t.X),
+                             (int)Math.Round(v.Y * ConvertXY.Y + t.Y));
         }
 
         private void test(Point[] v)
