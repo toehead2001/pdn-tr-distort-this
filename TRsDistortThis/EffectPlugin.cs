@@ -8,18 +8,18 @@ namespace TRsDistortThis
 {
     public class PluginSupportInfo : IPluginSupportInfo
     {
-        public string Author => "TechnoRobbo";
-        public string Copyright => ((AssemblyCopyrightAttribute)base.GetType().Assembly.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)[0]).Copyright;
+        public string Author => ((AssemblyCopyrightAttribute)base.GetType().Assembly.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)[0]).Copyright;
+        public string Copyright => ((AssemblyDescriptionAttribute)base.GetType().Assembly.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false)[0]).Description;
         public string DisplayName => ((AssemblyProductAttribute)base.GetType().Assembly.GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0]).Product;
         public Version Version => base.GetType().Assembly.GetName().Version;
-        public Uri WebsiteUri => new Uri("http://www.technorobbo.com");
+        public Uri WebsiteUri => new Uri("https://www.getpaint.net/redirect/plugins.html");
     }
 
-    [PluginSupportInfo(typeof(PluginSupportInfo), DisplayName = "TR's DistortThis!")]
+    [PluginSupportInfo(typeof(PluginSupportInfo), DisplayName = "DistortThis!")]
     public class EffectPlugin : Effect
     {
-        internal const string StaticName = "TR's DistortThis!";
-        private readonly static Bitmap StaticImage = Properties.Resources.icon;
+        internal const string StaticName = "DistortThis!";
+        private readonly static Bitmap StaticImage = null;
 
         public EffectPlugin()
             : base(StaticName, StaticImage, SubmenuNames.Distort, EffectFlags.Configurable)

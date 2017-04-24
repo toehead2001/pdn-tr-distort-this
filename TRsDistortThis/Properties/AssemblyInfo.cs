@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TR's DistortThis!")]
-[assembly: AssemblyDescription("TRsDistortThis Plugin for Paint.NET")]
+[assembly: AssemblyTitle("DistortThis!")]
+[assembly: AssemblyDescription("DistortThis Plugin for Paint.NET")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("TechnoRobbo")]
-[assembly: AssemblyProduct("TRsDistortThis")]
-[assembly: AssemblyCopyright("Copyright 2013 © TechnoRobbo")]
+[assembly: AssemblyCompany("toe_head2001")]
+[assembly: AssemblyProduct("DistortThis")]
+[assembly: AssemblyCopyright("Copyright 2017 © toe_head2001, TechnoRobbo")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
