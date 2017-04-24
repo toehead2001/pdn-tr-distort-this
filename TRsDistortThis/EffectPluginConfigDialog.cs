@@ -16,11 +16,9 @@ namespace TRsDistortThis
         private Rectangle anchor = new Rectangle();
         private PointF ConvertXY = new PointF(1, 1);
         private bool moveflag = false;
-        private bool RenderFlag = false;
         private bool SWAFlag = false;
         private int CornerSelect = -1;
         private Point[] tweak = new Point[4];
-        private bool closeform = false;
         private bool initialize = true;
         bool nonNumberEntered = true;
         Keys[] keyCheck ={Keys.D0,Keys.D1,Keys.D2,Keys.D3,Keys.D4,Keys.D5,
@@ -53,10 +51,8 @@ namespace TRsDistortThis
 
             token.AlphaTrans = AlphaBox.Checked;
             token.Perspective = PerspBox.Checked;
-            token.RenderFlag = RenderFlag;
             token.UValue = UAxis.Value;
             token.VValue = VAxis.Value;
-            RenderFlag = false;
         }
 
         protected override void InitDialogFromToken(EffectConfigToken effectToken)
@@ -74,22 +70,7 @@ namespace TRsDistortThis
             PerspBox.Checked = token.Perspective;
             UAxis.Value = token.UValue;
             VAxis.Value = token.VValue;
-            RenderFlag = token.RenderFlag;
             SWAFlag = false;
-        }
-
-        private void buttonOK_Click(object sender, EventArgs e)
-        {
-            timer1.Enabled = false;
-            Application.DoEvents();
-            FinishTokenUpdate();
-            DialogResult = DialogResult.OK;
-            this.Close();
-        }
-
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void EffectPluginConfigDialog_Load(object sender, EventArgs e)
@@ -171,7 +152,6 @@ namespace TRsDistortThis
 
                 vCorners = MyBounds(anchor);
                 PreViewBMP.Refresh();
-                RenderFlag = true;
 
 
                 for (int i = 0; i < 4; i++)
@@ -198,7 +178,6 @@ namespace TRsDistortThis
 
                 if (CornerSelect != -1)
                 {
-                    RenderFlag = true;
                     symmetry(e.Location);
                     PreViewBMP.Refresh();
                     FinishTokenUpdate();
@@ -253,7 +232,6 @@ namespace TRsDistortThis
                 symmetry(e.Location);
 
                 PreViewBMP.Refresh();
-                RenderFlag = true;
                 FinishTokenUpdate();
             }
 
@@ -320,7 +298,6 @@ namespace TRsDistortThis
                     tweak[i] = getTweak(Corners[i], vCorners[i]);
                 }
             }
-            RenderFlag = true;
             PreViewBMP.Invalidate();
             FinishTokenUpdate();
             //test(Corners);
@@ -377,7 +354,6 @@ namespace TRsDistortThis
                 }
             }
 
-            RenderFlag = true;
             FinishTokenUpdate();
         }
 
@@ -471,7 +447,6 @@ namespace TRsDistortThis
                     tweak[CornerSelect] = getTweak(Corners[CornerSelect], vCorners[CornerSelect]);
 
                 }
-                RenderFlag = true;
                 FinishTokenUpdate();
                 PreViewBMP.Refresh();
             }
@@ -479,13 +454,7 @@ namespace TRsDistortThis
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (closeform)
-            {
-                timer1.Enabled = false;
-                KillSicky.AllowAccessibilityShortcutKeys(true);
-                this.Close();
-            }
-            else if (passClass.StringID == "1")
+            if (passClass.StringID == "1")
             {
                 Busy.ForeColor = Color.Red;
             }
@@ -497,11 +466,9 @@ namespace TRsDistortThis
 
         private void EffectPluginConfigDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
+            KillSicky.AllowAccessibilityShortcutKeys(true);
             if (timer1.Enabled)
-            {
-                closeform = true;
-                e.Cancel = true;
-            }
+                timer1.Enabled = false;
         }
 
         private void SeeThru_CheckedChanged(object sender, EventArgs e)
@@ -532,7 +499,6 @@ namespace TRsDistortThis
             {
                 UVal.Text = "U Value " + UAxis.Value.ToString() + "%";
                 VVal.Text = "V Value " + VAxis.Value.ToString() + "%";
-                RenderFlag = true;
                 FinishTokenUpdate();
             }
         }
@@ -581,7 +547,6 @@ namespace TRsDistortThis
                         Corners[CornerSelect] = p;
                         vCorners[CornerSelect] = getVcorner(Corners[CornerSelect]);
                         tweak[CornerSelect] = getTweak(Corners[CornerSelect], vCorners[CornerSelect]);
-                        RenderFlag = true;
                         FinishTokenUpdate();
                     }
                 }

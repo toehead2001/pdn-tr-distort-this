@@ -40,11 +40,6 @@ namespace TRsDistortThis
             get;
             set;
         }
-        public bool RenderFlag
-        {
-            get;
-            set;
-        }
         public int UValue
         {
             get;
@@ -72,7 +67,6 @@ namespace TRsDistortThis
             this.Tweak = tweak;
             this.AlphaTrans = alphatrans;
             this.Perspective = perspective;
-            this.RenderFlag = renderflag;
             this.UValue = uvalue;
             this.VValue = vvalue;
             this.initialize = init;
@@ -88,7 +82,6 @@ namespace TRsDistortThis
             this.vCorners = copyMe.vCorners;
             this.AlphaTrans = copyMe.AlphaTrans;
             this.Perspective = copyMe.Perspective;
-            this.RenderFlag = copyMe.RenderFlag;
             this.UValue = copyMe.UValue;
             this.VValue = copyMe.VValue;
             this.initialize = copyMe.initialize;

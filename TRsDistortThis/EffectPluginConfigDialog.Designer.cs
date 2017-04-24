@@ -61,18 +61,17 @@
             this.buttonCancel.TabIndex = 1;
             this.buttonCancel.TabStop = false;
             this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.Location = new System.Drawing.Point(416, 410);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(72, 40);
             this.buttonOK.TabIndex = 2;
             this.buttonOK.TabStop = false;
             this.buttonOK.Text = "OK";
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // PreViewBMP
             // 

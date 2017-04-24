@@ -39,7 +39,6 @@ namespace TRsDistortThis
             sCorners = token.sCorners;
             AlphaTrans = token.AlphaTrans;
             Perspective = token.Perspective;
-            RenderFlag = token.RenderFlag;
             Uvalue = (double)token.UValue / 100;
             Vvalue = (double)token.VValue / 100;
 
@@ -61,7 +60,7 @@ namespace TRsDistortThis
             for (int i = startIndex; i < startIndex + length; ++i)
             {
                 if (IsCancelRequested) break;
-                if (RenderFlag) myRender(dstArgs.Surface, srcArgs.Surface, rois[i]);
+                myRender(dstArgs.Surface, srcArgs.Surface, rois[i]);
             }
             passClass.StringID = "0";
         }
@@ -76,7 +75,6 @@ namespace TRsDistortThis
         Rectangle sCorners = new Rectangle();
         bool AlphaTrans = true; // [0,1] Alpha Transparency
         bool Perspective = true; // [0,1] Perspective
-        bool RenderFlag = false;
         double Vvalue = 1;
         double Uvalue = 1;
         Surface src2;
