@@ -136,6 +136,7 @@ namespace TRsDistortThis
             {
                 SWAFlag = false;
                 SWA.Checked = false;
+                PreViewBMP.Cursor = Cursors.Default;
                 tweak = new Point[4];
                 if (anchor.Width < 0)
                 {
@@ -465,7 +466,14 @@ namespace TRsDistortThis
         {
             SWAFlag = false;
             if (SWA.Checked)
+            {
                 ReZet(true);
+                PreViewBMP.Cursor = Cursors.Cross;
+            }
+            else
+            {
+                PreViewBMP.Cursor = Cursors.Default;
+            }
         }
 
         private void Axis_Scroll(object sender, ScrollEventArgs e)
