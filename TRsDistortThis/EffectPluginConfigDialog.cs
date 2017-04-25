@@ -251,6 +251,15 @@ namespace TRsDistortThis
                     nAnchor.Height *= -1;
                 }
             }
+            else
+            {
+                using (GraphicsPath fillPath = new GraphicsPath())
+                using (HatchBrush hatch = new HatchBrush(HatchStyle.DiagonalCross, Color.FromArgb(127, Color.Black), Color.FromArgb(127, Color.White)))
+                {
+                    fillPath.AddRectangles(new RectangleF[] { PreViewBMP.ClientRectangle, nAnchor });
+                    e.Graphics.FillPath(hatch, fillPath);
+                }
+            }
             nAnchor.Width--;
             nAnchor.Height--;
             using (Pen anchorPen = new Pen((SWAFlag) ? Color.Blue : Color.FromArgb(128, Color.Blue), 1))
