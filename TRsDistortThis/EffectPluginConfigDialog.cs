@@ -81,13 +81,13 @@ namespace TRsDistortThis
             {
                 int tx = (int)Math.Round(PreViewBMP.ClientRectangle.Width / ratio);
                 int pos = (int)Math.Round((PreViewBMP.ClientRectangle.Width - tx) / 2f);
-                PreViewBMP.Bounds = new Rectangle(pos, 0, tx, PreViewBMP.Height);
+                PreViewBMP.Bounds = new Rectangle(pos, PreViewBMP.Top, tx, PreViewBMP.Height);
             }
-            else
+            else if (ratio < 1)
             {
                 int ty = (int)Math.Round(PreViewBMP.ClientRectangle.Height * ratio);
                 int pos = (int)Math.Round((PreViewBMP.ClientRectangle.Height - ty) / 2f);
-                PreViewBMP.Bounds = new Rectangle(0, pos, PreViewBMP.ClientRectangle.Width, ty);
+                PreViewBMP.Bounds = new Rectangle(PreViewBMP.Left, pos, PreViewBMP.ClientRectangle.Width, ty);
             }
             //=====make checkerboard
 
