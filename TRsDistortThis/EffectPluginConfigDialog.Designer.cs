@@ -111,7 +111,7 @@
             this.AlphaBox.Size = new System.Drawing.Size(113, 17);
             this.AlphaBox.TabIndex = 4;
             this.AlphaBox.Text = "Alpha Transparent";
-            this.AlphaBox.CheckedChanged += new System.EventHandler(this.Box_CheckedChanged);
+            this.AlphaBox.CheckedChanged += new System.EventHandler(this.AlphaBox_CheckedChanged);
             // 
             // PerspBox
             // 
@@ -125,7 +125,7 @@
             this.PerspBox.TabIndex = 5;
             this.PerspBox.TabStop = false;
             this.PerspBox.Text = "Forced Perspective";
-            this.PerspBox.CheckedChanged += new System.EventHandler(this.Box_CheckedChanged);
+            this.PerspBox.CheckedChanged += new System.EventHandler(this.PerspBox_CheckedChanged);
             // 
             // RstButton
             // 

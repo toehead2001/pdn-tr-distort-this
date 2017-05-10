@@ -52,8 +52,8 @@ namespace TRsDistortThis
 
             token.AlphaTrans = AlphaBox.Checked;
             token.Perspective = PerspBox.Checked;
-            token.UValue = UAxis.Value;
-            token.VValue = VAxis.Value;
+            token.UValue = PerspBox.Checked ? UAxis.Value : 1;
+            token.VValue = PerspBox.Checked ? VAxis.Value : 1;
         }
 
         protected override void InitDialogFromToken(EffectConfigToken effectToken)
@@ -345,31 +345,27 @@ namespace TRsDistortThis
             foreach (Point i in v) s += " " + i.ToString();
         }
 
-        private void Box_CheckedChanged(object sender, EventArgs e)
+        private void PerspBox_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox cb = (CheckBox)sender;
-            if (cb.Name == PerspBox.Name)
+            if (PerspBox.Checked)
             {
-                if (cb.Checked)
-                {
-                    UVal.ForeColor = Color.Black;
-                    UAxis.Enabled = true;
-                    UAxis.Value = 100;
-                    VVal.ForeColor = Color.Black;
-                    VAxis.Enabled = true;
-                    VAxis.Value = 100;
-                }
-                else
-                {
-                    UVal.ForeColor = Color.Gray;
-                    UAxis.Enabled = false;
-                    UAxis.Value = 0;
-                    VVal.ForeColor = Color.Gray;
-                    VAxis.Enabled = false;
-                    VAxis.Value = 0;
-                }
+                UVal.Enabled = true;
+                UAxis.Enabled = true;
+                VVal.Enabled = true;
+                VAxis.Enabled = true;
             }
+            else
+            {
+                UVal.Enabled = false;
+                UAxis.Enabled = false;
+                VVal.Enabled = false;
+                VAxis.Enabled = false;
+            }
+            FinishTokenUpdate();
+        }
 
+        private void AlphaBox_CheckedChanged(object sender, EventArgs e)
+        {
             FinishTokenUpdate();
         }
 
