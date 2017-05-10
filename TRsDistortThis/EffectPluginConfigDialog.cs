@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using PaintDotNet.Effects;
 using PaintDotNet;
+using System.Linq;
 
 namespace TRsDistortThis
 {
@@ -504,16 +505,7 @@ namespace TRsDistortThis
 
         private void cParam_KeyDown(object sender, KeyEventArgs e)
         {
-            nonNumberEntered = false;
-            foreach (Keys k in keyCheck)
-            {
-                if (e.KeyCode.Equals(k))
-                {
-                    nonNumberEntered = false;
-                    return;
-                }
-            }
-            nonNumberEntered = true;
+            nonNumberEntered = !keyCheck.Contains(e.KeyCode);
         }
 
         private void cParam_KeyPress(object sender, KeyPressEventArgs e)
