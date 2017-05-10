@@ -315,7 +315,7 @@ namespace TRsDistortThis
                     tweak[i] = getTweak(Corners[i], vCorners[i]);
                 }
             }
-            PreViewBMP.Invalidate();
+            PreViewBMP.Refresh();
             FinishTokenUpdate();
             //test(Corners);
         }

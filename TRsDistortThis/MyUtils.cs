@@ -75,7 +75,7 @@ namespace TRsDistortThis
 
         internal static double Pythag(PointD p1, PointD p2)
         {
-            return Math.Sqrt((p2.X - p1.X) * (p2.X - p1.X) + (p2.Y - p1.Y) * (p2.Y - p1.Y));
+            return Math.Sqrt(Math.Pow(p2.X - p1.X, 2) + Math.Pow(p2.Y - p1.Y, 2));
         }
 
         internal static Point Centroid(Point[] source)
