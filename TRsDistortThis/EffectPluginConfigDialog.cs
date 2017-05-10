@@ -459,9 +459,9 @@ namespace TRsDistortThis
                 Corners[CornerSelect] = Corners[CornerSelect].Clamp(EffectSourceSurface.Bounds);
                 vCorners[CornerSelect] = getVcorner(Corners[CornerSelect]);
                 tweak[CornerSelect] = getTweak(Corners[CornerSelect], vCorners[CornerSelect]);
+                FinishTokenUpdate();
             }
 
-            FinishTokenUpdate();
             PreViewBMP.Refresh();
 
             return true;
