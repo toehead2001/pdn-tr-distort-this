@@ -540,11 +540,11 @@ namespace TRsDistortThis
 
         private void PreViewBMP_DoubleClick(object sender, EventArgs e)
         {
-            if (CornerSelect == -1) return;
-            //test(Corners);
-            cParam.Text = String.Format("{0} {1}", Corners[CornerSelect].X, Corners[CornerSelect].Y);
-            Point p = MyUtils.Centroid(MyBounds(PreViewBMP.ClientRectangle));
+            if (CornerSelect == -1)
+                return;
+            cParam.Text = $"{Corners[CornerSelect].X} {Corners[CornerSelect].Y}";
             cParam.Select(cParam.Text.Length, 0);
+            Point p = MyUtils.Centroid(MyBounds(PreViewBMP.ClientRectangle));
             cParam.Location = new Point(p.X - cParam.Width / 2, p.Y - cParam.Height / 2);
             cParam.Visible = true;
             cParam.Focus();
