@@ -1,65 +1,22 @@
+using PaintDotNet.Effects;
 using System.Drawing;
 
 namespace TRsDistortThis
 {
-    public class EffectPluginConfigToken : PaintDotNet.Effects.EffectConfigToken
+    internal class EffectPluginConfigToken : EffectConfigToken
     {
+        internal Point[] Corners { get; set; }
+        internal Point[] vCorners { get; set; }
+        internal Rectangle sCorners { get; set; }
+        internal Rectangle Anchor { get; set; }
+        internal Point[] Tweak { get; set; }
+        internal bool AlphaTrans { get; set; }
+        internal bool Perspective { get; set; }
+        internal int UValue { get; set; }
+        internal int VValue { get; set; }
+        internal bool initialize { get; set; }
 
-        public Point[] Corners
-        {
-            get;
-            set;
-        }
-        public Point[] vCorners
-        {
-            get;
-            set;
-        }
-        public Rectangle sCorners
-        {
-            get;
-            set;
-        }
-        public Rectangle Anchor
-        {
-            get;
-            set;
-        }
-        public Point[] Tweak
-        {
-            get;
-            set;
-        }
-        public bool AlphaTrans
-        {
-            get;
-            set;
-        }
-        public bool Perspective
-        {
-            get;
-            set;
-        }
-        public int UValue
-        {
-            get;
-            set;
-        }
-        public int VValue
-        {
-            get;
-            set;
-        }
-        public bool initialize
-        {
-            get;
-            set;
-        }
-
-        public EffectPluginConfigToken(Point[] corners, Rectangle scorners, Rectangle anchor, Point[] vcorners,
-            Point[] tweak, bool alphatrans, bool perspective, bool renderflag,
-            int uvalue, int vvalue, bool init)
-            : base()
+        internal EffectPluginConfigToken(Point[] corners, Rectangle scorners, Rectangle anchor, Point[] vcorners, Point[] tweak, bool alphatrans, bool perspective, int uvalue, int vvalue, bool init)
         {
             this.Corners = corners;
             this.vCorners = vcorners;
@@ -73,8 +30,7 @@ namespace TRsDistortThis
             this.Anchor = anchor;
         }
 
-        protected EffectPluginConfigToken(EffectPluginConfigToken copyMe)
-            : base(copyMe)
+        protected EffectPluginConfigToken(EffectPluginConfigToken copyMe) : base(copyMe)
         {
             this.Corners = copyMe.Corners;
             this.sCorners = copyMe.sCorners;
