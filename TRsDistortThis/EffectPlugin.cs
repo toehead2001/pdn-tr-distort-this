@@ -15,11 +15,11 @@ namespace TRsDistortThis
         public Uri WebsiteUri => new Uri("https://www.getpaint.net/redirect/plugins.html");
     }
 
-    [PluginSupportInfo(typeof(PluginSupportInfo), DisplayName = "DistortThis!")]
+    [PluginSupportInfo(typeof(PluginSupportInfo), DisplayName = "Distort This!")]
     public class EffectPlugin : Effect
     {
-        internal const string StaticName = "DistortThis!";
-        private readonly static Bitmap StaticImage = null;
+        internal const string StaticName = "Distort This!";
+        private readonly static Bitmap StaticImage = new Bitmap(typeof(EffectPlugin), "DistortThis.png");
 
         public EffectPlugin()
             : base(StaticName, StaticImage, SubmenuNames.Distort, EffectFlags.Configurable)
