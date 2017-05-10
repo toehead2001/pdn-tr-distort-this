@@ -21,30 +21,7 @@ namespace TRsDistortThis
         {
             PointD AB = new PointD(B.X - A.X, B.Y - A.Y);
             PointD AC = new PointD(C.X - A.X, C.Y - A.Y);
-            double cross = AB.X * AC.Y - AB.Y * AC.X;
-            return cross;
-        }
-
-
-        internal static int clamp(int p, int l, int h)
-        {
-            p = (p < l) ? l : (p > h) ? h : p;
-
-            return p;
-        }
-
-        internal static float clampF(float p, float l, float h)
-        {
-            p = (p < l) ? l : (p > h) ? h : p;
-
-            return p;
-        }
-
-        internal static double clampD(double p, double l, double h)
-        {
-            p = (p < l) ? l : (p > h) ? h : p;
-
-            return p;
+            return AB.X * AC.Y - AB.Y * AC.X;
         }
 
         internal static Point Clamp(this Point p, Rectangle bounds)
@@ -63,14 +40,9 @@ namespace TRsDistortThis
             return Rectangle.FromLTRB(left, top, right, bottom);
         }
 
-        internal static double Pythag(double p1, double p2)
-        {
-            return Math.Sqrt(p1 * p1 + p2 * p2);
-        }
-
         internal static double Pythag(Point p1, Point p2)
         {
-            return Math.Sqrt((p2.X - p1.X) * (p2.X - p1.X) + (p2.Y - p1.Y) * (p2.Y - p1.Y));
+            return Math.Sqrt(Math.Pow(p2.X - p1.X, 2) + Math.Pow(p2.Y - p1.Y, 2));
         }
 
         internal static double Pythag(PointD p1, PointD p2)
@@ -78,7 +50,7 @@ namespace TRsDistortThis
             return Math.Sqrt(Math.Pow(p2.X - p1.X, 2) + Math.Pow(p2.Y - p1.Y, 2));
         }
 
-        internal static Point Centroid(Point[] source)
+        internal static Point CenterPoint(this Point[] source)
         {
             Point tmp = new Point();
             if (source.Length == 0) return tmp;
@@ -92,5 +64,37 @@ namespace TRsDistortThis
             return tmp;
         }
 
+        internal static Point CenterPoint(this Rectangle rect)
+        {
+            return new Point
+            {
+                X = rect.Width / 2 + rect.Left,
+                Y = rect.Height / 2 + rect.Top
+            };
+        }
+
+        internal static Rectangle ToRectangle(this Point[] pts) //fix rotation
+        {
+            if (pts.Length != 4)
+                throw new ArgumentException("Length of Point Array must be 4");
+
+            return new Rectangle
+            {
+                //prelim
+                Width = pts[2].X - pts[0].X,
+                Height = pts[2].Y - pts[0].Y,
+                Location = pts[0]
+            };
+        }
+
+        internal static Point[] ToPointArray(this Rectangle y)
+        {
+            Point[] x = new Point[4];
+            x[0] = new Point(y.Left, y.Top);
+            x[1] = new Point(y.Width + y.Left - 1, y.Top);
+            x[2] = new Point(y.Width + y.Left - 1, y.Top + y.Height - 1);
+            x[3] = new Point(y.Left, y.Top + y.Height - 1);
+            return x;
+        }
     }
 }

@@ -150,7 +150,7 @@ namespace TRsDistortThis
                     anchor.Height *= -1;
                 }
 
-                vCorners = MyBounds(anchor);
+                vCorners = anchor.ToPointArray();
                 PreViewBMP.Refresh();
 
 
@@ -158,7 +158,7 @@ namespace TRsDistortThis
                 {
                     Corners[i] = getCorner(vCorners[i], tweak[i]).Clamp(EffectSourceSurface.Bounds);
                 }
-                sCorners = MyRect(Corners);
+                sCorners = Corners.ToRectangle();
                 if (sCorners.Width <= 0 || sCorners.Height <= 0)
                 {
                     SWAFlag = true;
@@ -186,7 +186,7 @@ namespace TRsDistortThis
         {
             vCorners[CornerSelect] = e.Clamp(PreViewBMP.ClientRectangle);
 
-            Point pmid = MyUtils.Centroid(vCorners);
+            Point pmid = vCorners.CenterPoint();
             int mx = pmid.X + (pmid.X - e.X);
             int my = pmid.Y + (pmid.Y - e.Y);
             if (MirrorX.Checked && MirrorY.Checked)
@@ -287,7 +287,7 @@ namespace TRsDistortThis
 
         private void ResetNubsButton_Click(object sender, EventArgs e)
         {
-            vCorners = MyBounds(anchor);
+            vCorners = anchor.ToPointArray();
             PreViewBMP.Refresh();
 
             for (int i = 0; i < 4; i++)
@@ -301,9 +301,9 @@ namespace TRsDistortThis
         {
             if (newSet)
             {
-                Corners = MyBounds(EffectSourceSurface.Bounds);
+                Corners = EffectSourceSurface.Bounds.ToPointArray();
                 sCorners = EffectSourceSurface.Bounds;
-                vCorners = MyBounds(PreViewBMP.ClientRectangle);
+                vCorners = PreViewBMP.ClientRectangle.ToPointArray();
 
                 anchor = PreViewBMP.ClientRectangle;// MyRect(vCorners);
             }
@@ -367,27 +367,6 @@ namespace TRsDistortThis
         private void AlphaBox_CheckedChanged(object sender, EventArgs e)
         {
             FinishTokenUpdate();
-        }
-
-        private Point[] MyBounds(Rectangle y)
-        {
-            Point[] x = new Point[4];
-            x[0] = new Point(y.Left, y.Top);
-            x[1] = new Point(y.Width + y.Left - 1, y.Top);
-            x[2] = new Point(y.Width + y.Left - 1, y.Top + y.Height - 1);
-            x[3] = new Point(y.Left, y.Top + y.Height - 1);
-            return x;
-        }
-
-        private Rectangle MyRect(Point[] y) //fix rotation
-        {
-            return new Rectangle
-            {
-                //prelim
-                Width = y[2].X - y[0].X,
-                Height = y[2].Y - y[0].Y,
-                Location = y[0]
-            };
         }
 
         private bool CheckNode(int x, int y)
@@ -543,7 +522,7 @@ namespace TRsDistortThis
                 return;
             cParam.Text = $"{Corners[CornerSelect].X} {Corners[CornerSelect].Y}";
             cParam.Select(cParam.Text.Length, 0);
-            Point p = MyUtils.Centroid(MyBounds(PreViewBMP.ClientRectangle));
+            Point p = PreViewBMP.ClientRectangle.CenterPoint();
             cParam.Location = new Point(p.X - cParam.Width / 2, p.Y - cParam.Height / 2);
             cParam.Visible = true;
             cParam.Focus();
