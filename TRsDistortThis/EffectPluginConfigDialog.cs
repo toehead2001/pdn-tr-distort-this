@@ -418,53 +418,53 @@ namespace TRsDistortThis
                 case Keys.Left:
                 case Keys.Right:
                 case Keys.Tab:
-                    HandleKeys(keyData);
-                    break;
+                    return HandleKeys(keyData);
                 default:
                     return base.ProcessCmdKey(ref msg, keyData);
             }
-
-            return true;
         }
 
-        private void HandleKeys(Keys e)
+        private bool HandleKeys(Keys e)
         {
-            if (CornerSelect != -1)
-            {
-                bool tweaked = false;
-                switch (e)
-                {
-                    case Keys.Up:
-                        Corners[CornerSelect].Y -= 1;
-                        tweaked = true;
-                        break;
-                    case Keys.Down:
-                        Corners[CornerSelect].Y += 1;
-                        tweaked = true;
-                        break;
-                    case Keys.Left:
-                        Corners[CornerSelect].X -= 1;
-                        tweaked = true;
-                        break;
-                    case Keys.Right:
-                        Corners[CornerSelect].X += 1;
-                        tweaked = true;
-                        break;
-                    case Keys.Tab:
-                        CornerSelect = (CornerSelect + 1) % 4;
-                        tweaked = false;
-                        break;
-                }
+            if (CornerSelect == -1 || cParam.Visible)
+                return false;
 
-                if (tweaked)
-                {
-                    Corners[CornerSelect] = Corners[CornerSelect].Clamp(EffectSourceSurface.Bounds);
-                    vCorners[CornerSelect] = getVcorner(Corners[CornerSelect]);
-                    tweak[CornerSelect] = getTweak(Corners[CornerSelect], vCorners[CornerSelect]);
-                }
-                FinishTokenUpdate();
-                PreViewBMP.Refresh();
+            bool tweaked = false;
+            switch (e)
+            {
+                case Keys.Up:
+                    Corners[CornerSelect].Y -= 1;
+                    tweaked = true;
+                    break;
+                case Keys.Down:
+                    Corners[CornerSelect].Y += 1;
+                    tweaked = true;
+                    break;
+                case Keys.Left:
+                    Corners[CornerSelect].X -= 1;
+                    tweaked = true;
+                    break;
+                case Keys.Right:
+                    Corners[CornerSelect].X += 1;
+                    tweaked = true;
+                    break;
+                case Keys.Tab:
+                    CornerSelect = (CornerSelect + 1) % 4;
+                    tweaked = false;
+                    break;
             }
+
+            if (tweaked)
+            {
+                Corners[CornerSelect] = Corners[CornerSelect].Clamp(EffectSourceSurface.Bounds);
+                vCorners[CornerSelect] = getVcorner(Corners[CornerSelect]);
+                tweak[CornerSelect] = getTweak(Corners[CornerSelect], vCorners[CornerSelect]);
+            }
+
+            FinishTokenUpdate();
+            PreViewBMP.Refresh();
+
+            return true;
         }
 
         private void SeeThru_CheckedChanged(object sender, EventArgs e)
