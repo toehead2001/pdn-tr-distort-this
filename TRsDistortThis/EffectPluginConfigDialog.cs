@@ -485,20 +485,16 @@ namespace TRsDistortThis
             }
         }
 
-        private void Axis_Scroll(object sender, ScrollEventArgs e)
+        private void UAxis_Scroll(object sender, EventArgs e)
         {
-            if (e.Type == ScrollEventType.EndScroll)
-            {
-                UVal.Text = "U Value " + UAxis.Value.ToString() + "%";
-                VVal.Text = "V Value " + VAxis.Value.ToString() + "%";
-                FinishTokenUpdate();
-            }
+            UVal.Text = $"U Value {UAxis.Value}%";
+            FinishTokenUpdate();
         }
 
-        private void Axis_ValueChanged(object sender, EventArgs e)
+        private void VAxis_Scroll(object sender, EventArgs e)
         {
-            UVal.Text = "U Value " + UAxis.Value.ToString() + "%";
-            VVal.Text = "V Value " + VAxis.Value.ToString() + "%";
+            VVal.Text = $"V Value {VAxis.Value}%";
+            FinishTokenUpdate();
         }
 
         private void cParam_Leave(object sender, EventArgs e)

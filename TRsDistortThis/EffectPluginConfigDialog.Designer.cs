@@ -37,15 +37,17 @@
             this.RstButton = new System.Windows.Forms.Button();
             this.SeeThru = new System.Windows.Forms.CheckBox();
             this.SWA = new System.Windows.Forms.CheckBox();
-            this.UAxis = new System.Windows.Forms.HScrollBar();
-            this.VAxis = new System.Windows.Forms.HScrollBar();
             this.UVal = new System.Windows.Forms.Label();
             this.VVal = new System.Windows.Forms.Label();
             this.MirrorX = new System.Windows.Forms.CheckBox();
             this.MirrorY = new System.Windows.Forms.CheckBox();
             this.ResetNubsButton = new System.Windows.Forms.Button();
+            this.UAxis = new System.Windows.Forms.TrackBar();
+            this.VAxis = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.PreViewBMP)).BeginInit();
             this.PreViewBMP.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.UAxis)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VAxis)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -160,30 +162,6 @@
             this.SWA.Text = "Set Work Area";
             this.SWA.CheckedChanged += new System.EventHandler(this.SWA_CheckedChanged);
             // 
-            // UAxis
-            // 
-            this.UAxis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.UAxis.LargeChange = 1;
-            this.UAxis.Location = new System.Drawing.Point(417, 91);
-            this.UAxis.Name = "UAxis";
-            this.UAxis.Size = new System.Drawing.Size(150, 17);
-            this.UAxis.TabIndex = 12;
-            this.UAxis.Value = 100;
-            this.UAxis.Scroll += new System.Windows.Forms.ScrollEventHandler(this.Axis_Scroll);
-            this.UAxis.ValueChanged += new System.EventHandler(this.Axis_ValueChanged);
-            // 
-            // VAxis
-            // 
-            this.VAxis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.VAxis.LargeChange = 1;
-            this.VAxis.Location = new System.Drawing.Point(417, 139);
-            this.VAxis.Name = "VAxis";
-            this.VAxis.Size = new System.Drawing.Size(150, 17);
-            this.VAxis.TabIndex = 12;
-            this.VAxis.Value = 100;
-            this.VAxis.Scroll += new System.Windows.Forms.ScrollEventHandler(this.Axis_Scroll);
-            this.VAxis.ValueChanged += new System.EventHandler(this.Axis_ValueChanged);
-            // 
             // UVal
             // 
             this.UVal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -236,16 +214,42 @@
             this.ResetNubsButton.UseVisualStyleBackColor = true;
             this.ResetNubsButton.Click += new System.EventHandler(this.ResetNubsButton_Click);
             // 
+            // UAxis
+            // 
+            this.UAxis.AutoSize = false;
+            this.UAxis.LargeChange = 1;
+            this.UAxis.Location = new System.Drawing.Point(417, 89);
+            this.UAxis.Maximum = 100;
+            this.UAxis.Name = "UAxis";
+            this.UAxis.Size = new System.Drawing.Size(150, 24);
+            this.UAxis.TabIndex = 15;
+            this.UAxis.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.UAxis.Value = 100;
+            this.UAxis.Scroll += new System.EventHandler(this.UAxis_Scroll);
+            // 
+            // VAxis
+            // 
+            this.VAxis.AutoSize = false;
+            this.VAxis.LargeChange = 1;
+            this.VAxis.Location = new System.Drawing.Point(417, 137);
+            this.VAxis.Maximum = 100;
+            this.VAxis.Name = "VAxis";
+            this.VAxis.Size = new System.Drawing.Size(150, 24);
+            this.VAxis.TabIndex = 16;
+            this.VAxis.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.VAxis.Value = 100;
+            this.VAxis.Scroll += new System.EventHandler(this.VAxis_Scroll);
+            // 
             // EffectPluginConfigDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(584, 412);
+            this.Controls.Add(this.VAxis);
+            this.Controls.Add(this.UAxis);
             this.Controls.Add(this.ResetNubsButton);
             this.Controls.Add(this.VVal);
             this.Controls.Add(this.UVal);
-            this.Controls.Add(this.VAxis);
-            this.Controls.Add(this.UAxis);
             this.Controls.Add(this.SeeThru);
             this.Controls.Add(this.RstButton);
             this.Controls.Add(this.SWA);
@@ -264,6 +268,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.PreViewBMP)).EndInit();
             this.PreViewBMP.ResumeLayout(false);
             this.PreViewBMP.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.UAxis)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VAxis)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -278,8 +284,6 @@
         private System.Windows.Forms.Button RstButton;
         private System.Windows.Forms.CheckBox SeeThru;
         private System.Windows.Forms.CheckBox SWA;
-        private System.Windows.Forms.HScrollBar UAxis;
-        private System.Windows.Forms.HScrollBar VAxis;
         private System.Windows.Forms.Label UVal;
         private System.Windows.Forms.Label VVal;
         private System.Windows.Forms.CheckBox MirrorX;
@@ -287,5 +291,7 @@
         private System.Windows.Forms.TextBox cParam;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button ResetNubsButton;
+        private System.Windows.Forms.TrackBar UAxis;
+        private System.Windows.Forms.TrackBar VAxis;
     }
 }
