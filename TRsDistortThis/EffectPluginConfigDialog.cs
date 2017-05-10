@@ -21,12 +21,13 @@ namespace TRsDistortThis
         private int CornerSelect = -1;
         private Point[] tweak = new Point[4];
         private bool initialize = true;
-        bool nonNumberEntered = true;
-        Keys[] keyCheck ={Keys.D0,Keys.D1,Keys.D2,Keys.D3,Keys.D4,Keys.D5,
-                          Keys.D6,Keys.D7,Keys.D8,Keys.D9,
-                          Keys.NumPad0,Keys.NumPad1,Keys.NumPad2,Keys.NumPad3,Keys.NumPad4,Keys.NumPad5,
-                          Keys.NumPad6,Keys.NumPad7,Keys.NumPad8,Keys.NumPad9,
-                          Keys.Back,Keys.Enter,Keys.Space};
+        private bool nonNumberEntered = true;
+        private readonly Keys[] keyCheck =
+        {
+            Keys.D0, Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9,
+            Keys.NumPad0, Keys.NumPad1, Keys.NumPad2, Keys.NumPad3, Keys.NumPad4, Keys.NumPad5,
+            Keys.NumPad6, Keys.NumPad7, Keys.NumPad8, Keys.NumPad9, Keys.Back, Keys.Enter, Keys.Space
+        };
 
         public EffectPluginConfigDialog()
         {
