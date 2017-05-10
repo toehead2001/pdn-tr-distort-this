@@ -549,5 +549,18 @@ namespace TRsDistortThis
             cParam.Visible = true;
             cParam.Focus();
         }
+
+        private void EffectPluginConfigDialog_HelpButtonClicked(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            string helpMessage = "The control nubs can be manipulated in the following ways:\n";
+            helpMessage += "\n";
+            helpMessage += "Arrow Keys move the Selected Corner by 1px\n";
+            helpMessage += "\n";
+            helpMessage += "Tab Key to Select the Next Corner.\n";
+            helpMessage += "\n";
+            helpMessage += "Double Click to input coordinates manually.\n";
+            MessageBox.Show(helpMessage, "Help");
+        }
     }
 }

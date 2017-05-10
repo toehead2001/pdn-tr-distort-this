@@ -260,10 +260,11 @@
             this.Controls.Add(this.PreViewBMP);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
+            this.HelpButton = true;
             this.KeyPreview = true;
             this.Location = new System.Drawing.Point(0, 0);
-            this.MinimizeBox = true;
             this.Name = "EffectPluginConfigDialog";
+            this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.EffectPluginConfigDialog_HelpButtonClicked);
             this.Load += new System.EventHandler(this.EffectPluginConfigDialog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PreViewBMP)).EndInit();
             this.PreViewBMP.ResumeLayout(false);
