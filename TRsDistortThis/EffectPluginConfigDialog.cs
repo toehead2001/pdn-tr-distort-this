@@ -426,8 +426,11 @@ namespace TRsDistortThis
 
         private bool HandleKeys(Keys e)
         {
-            if (CornerSelect == -1 || cParam.Visible)
+            if (cParam.Visible)
                 return false;
+
+            if (CornerSelect == -1)
+                return true;
 
             bool tweaked = false;
             switch (e)
