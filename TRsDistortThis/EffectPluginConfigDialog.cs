@@ -515,23 +515,27 @@ namespace TRsDistortThis
 
         private void cParam_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode.Equals(Keys.Enter))
-            {
-                string[] s = cParam.Text.Split(' ');
-                int x, y;
-                if (s.Length > 1 && Int32.TryParse(s[0], out x) && Int32.TryParse(s[1], out y))
-                {
-                    Point p = new Point(x, y);
-                    if (EffectSourceSurface.Bounds.Contains(p))
-                    {
-                        Corners[CornerSelect] = p;
-                        vCorners[CornerSelect] = getVcorner(Corners[CornerSelect]);
-                        tweak[CornerSelect] = getTweak(Corners[CornerSelect], vCorners[CornerSelect]);
-                        FinishTokenUpdate();
-                    }
-                }
-                cParam.Visible = false;
-            }
+            if (!e.KeyCode.Equals(Keys.Enter))
+                return;
+
+            string[] s = cParam.Text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (s.Length != 2)
+                return;
+
+            int x, y;
+            if (!Int32.TryParse(s[0], out x) || !Int32.TryParse(s[1], out y))
+                return;
+
+            Point p = new Point(x, y);
+            if (!EffectSourceSurface.Bounds.Contains(p))
+                return;
+
+            cParam.Visible = false;
+            Corners[CornerSelect] = p;
+            vCorners[CornerSelect] = getVcorner(Corners[CornerSelect]);
+            tweak[CornerSelect] = getTweak(Corners[CornerSelect], vCorners[CornerSelect]);
+            PreViewBMP.Refresh();
+            FinishTokenUpdate();
         }
 
         private void PreViewBMP_DoubleClick(object sender, EventArgs e)
