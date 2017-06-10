@@ -44,10 +44,12 @@
             this.ResetNubsButton = new System.Windows.Forms.Button();
             this.UAxis = new System.Windows.Forms.TrackBar();
             this.VAxis = new System.Windows.Forms.TrackBar();
+            this.AaTrack = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.PreViewBMP)).BeginInit();
             this.PreViewBMP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UAxis)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VAxis)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AaTrack)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -119,7 +121,7 @@
             this.PerspBox.AutoSize = true;
             this.PerspBox.Checked = true;
             this.PerspBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.PerspBox.Location = new System.Drawing.Point(416, 50);
+            this.PerspBox.Location = new System.Drawing.Point(416, 63);
             this.PerspBox.Name = "PerspBox";
             this.PerspBox.Size = new System.Drawing.Size(118, 17);
             this.PerspBox.TabIndex = 5;
@@ -166,7 +168,7 @@
             // 
             this.UVal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.UVal.AutoSize = true;
-            this.UVal.Location = new System.Drawing.Point(417, 73);
+            this.UVal.Location = new System.Drawing.Point(417, 86);
             this.UVal.Name = "UVal";
             this.UVal.Size = new System.Drawing.Size(74, 13);
             this.UVal.TabIndex = 13;
@@ -176,7 +178,7 @@
             // 
             this.VVal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.VVal.AutoSize = true;
-            this.VVal.Location = new System.Drawing.Point(420, 121);
+            this.VVal.Location = new System.Drawing.Point(420, 131);
             this.VVal.Name = "VVal";
             this.VVal.Size = new System.Drawing.Size(73, 13);
             this.VVal.TabIndex = 13;
@@ -218,7 +220,7 @@
             // 
             this.UAxis.AutoSize = false;
             this.UAxis.LargeChange = 1;
-            this.UAxis.Location = new System.Drawing.Point(417, 89);
+            this.UAxis.Location = new System.Drawing.Point(417, 102);
             this.UAxis.Maximum = 100;
             this.UAxis.Name = "UAxis";
             this.UAxis.Size = new System.Drawing.Size(150, 24);
@@ -231,7 +233,7 @@
             // 
             this.VAxis.AutoSize = false;
             this.VAxis.LargeChange = 1;
-            this.VAxis.Location = new System.Drawing.Point(417, 137);
+            this.VAxis.Location = new System.Drawing.Point(417, 147);
             this.VAxis.Maximum = 100;
             this.VAxis.Name = "VAxis";
             this.VAxis.Size = new System.Drawing.Size(150, 24);
@@ -240,11 +242,25 @@
             this.VAxis.Value = 100;
             this.VAxis.Scroll += new System.EventHandler(this.VAxis_Scroll);
             // 
+            // AaTrack
+            // 
+            this.AaTrack.AutoSize = false;
+            this.AaTrack.Location = new System.Drawing.Point(417, 34);
+            this.AaTrack.Maximum = 6;
+            this.AaTrack.Minimum = 1;
+            this.AaTrack.Name = "AaTrack";
+            this.AaTrack.Size = new System.Drawing.Size(150, 24);
+            this.AaTrack.TabIndex = 17;
+            this.AaTrack.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.AaTrack.Value = 1;
+            this.AaTrack.Scroll += new System.EventHandler(this.AaLevel_Scroll);
+            // 
             // EffectPluginConfigDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(584, 412);
+            this.Controls.Add(this.AaTrack);
             this.Controls.Add(this.VAxis);
             this.Controls.Add(this.UAxis);
             this.Controls.Add(this.ResetNubsButton);
@@ -271,6 +287,7 @@
             this.PreViewBMP.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UAxis)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VAxis)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AaTrack)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -294,5 +311,6 @@
         private System.Windows.Forms.Button ResetNubsButton;
         private System.Windows.Forms.TrackBar UAxis;
         private System.Windows.Forms.TrackBar VAxis;
+        private System.Windows.Forms.TrackBar AaTrack;
     }
 }

@@ -37,7 +37,7 @@ namespace TRsDistortThis
         protected override void InitialInitToken()
         {
             theEffectToken = new EffectPluginConfigToken(new Point[4], new Rectangle(), new Rectangle(), new Point[4],
-                new Point[4], true, true, 100, 100, true);
+                new Point[4], true, 1, true, 100, 100, true);
         }
 
         protected override void InitTokenFromDialog()
@@ -52,6 +52,7 @@ namespace TRsDistortThis
             token.Tweak = tweak;
 
             token.AlphaTrans = AlphaBox.Checked;
+            token.AaLevel = AaTrack.Value;
             token.Perspective = PerspBox.Checked;
             token.UValue = PerspBox.Checked ? UAxis.Value : 1;
             token.VValue = PerspBox.Checked ? VAxis.Value : 1;
@@ -69,6 +70,7 @@ namespace TRsDistortThis
             initialize = token.initialize;
 
             AlphaBox.Checked = token.AlphaTrans;
+            AaTrack.Value = token.AaLevel;
             PerspBox.Checked = token.Perspective;
             UAxis.Value = token.UValue;
             VAxis.Value = token.VValue;
@@ -380,6 +382,12 @@ namespace TRsDistortThis
         }
 
         private void AlphaBox_CheckedChanged(object sender, EventArgs e)
+        {
+            AaTrack.Enabled = AlphaBox.Checked;
+            FinishTokenUpdate();
+        }
+
+        private void AaLevel_Scroll(object sender, EventArgs e)
         {
             FinishTokenUpdate();
         }

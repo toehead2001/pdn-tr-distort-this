@@ -11,18 +11,20 @@ namespace TRsDistortThis
         internal Rectangle Anchor { get; set; }
         internal Point[] Tweak { get; set; }
         internal bool AlphaTrans { get; set; }
+        internal int AaLevel { get; set; }
         internal bool Perspective { get; set; }
         internal int UValue { get; set; }
         internal int VValue { get; set; }
         internal bool initialize { get; set; }
 
-        internal EffectPluginConfigToken(Point[] corners, Rectangle scorners, Rectangle anchor, Point[] vcorners, Point[] tweak, bool alphatrans, bool perspective, int uvalue, int vvalue, bool init)
+        internal EffectPluginConfigToken(Point[] corners, Rectangle scorners, Rectangle anchor, Point[] vcorners, Point[] tweak, bool alphatrans, int aalevel, bool perspective, int uvalue, int vvalue, bool init)
         {
             this.Corners = corners;
             this.vCorners = vcorners;
             this.sCorners = scorners;
             this.Tweak = tweak;
             this.AlphaTrans = alphatrans;
+            this.AaLevel = aalevel;
             this.Perspective = perspective;
             this.UValue = uvalue;
             this.VValue = vvalue;
@@ -37,6 +39,7 @@ namespace TRsDistortThis
             this.Tweak = copyMe.Tweak;
             this.vCorners = copyMe.vCorners;
             this.AlphaTrans = copyMe.AlphaTrans;
+            this.AaLevel = copyMe.AaLevel;
             this.Perspective = copyMe.Perspective;
             this.UValue = copyMe.UValue;
             this.VValue = copyMe.VValue;

@@ -38,6 +38,7 @@ namespace TRsDistortThis
             Corners = token.Corners;
             sCorners = token.sCorners;
             AlphaTrans = token.AlphaTrans;
+            AaAmount = token.AaLevel;
             Perspective = token.Perspective;
             Uvalue = (double)token.UValue / 100;
             Vvalue = (double)token.VValue / 100;
@@ -67,6 +68,7 @@ namespace TRsDistortThis
         Point[] Corners = new Point[4];
         Rectangle sCorners = new Rectangle();
         bool AlphaTrans = true; // [0,1] Alpha Transparency
+        int AaAmount = 1;
         bool Perspective = true; // [0,1] Perspective
         double Vvalue = 1;
         double Uvalue = 1;
