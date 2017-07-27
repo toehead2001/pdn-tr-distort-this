@@ -32,6 +32,8 @@ namespace TRsDistortThis
         public EffectPluginConfigDialog()
         {
             InitializeComponent();
+
+            SeeThru.Enabled = EnableOpacity;
         }
 
         protected override void InitialInitToken()
