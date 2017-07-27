@@ -45,6 +45,7 @@
             this.UAxis = new System.Windows.Forms.TrackBar();
             this.VAxis = new System.Windows.Forms.TrackBar();
             this.AaTrack = new System.Windows.Forms.TrackBar();
+            this.AaLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PreViewBMP)).BeginInit();
             this.PreViewBMP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.UAxis)).BeginInit();
@@ -121,7 +122,7 @@
             this.PerspBox.AutoSize = true;
             this.PerspBox.Checked = true;
             this.PerspBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.PerspBox.Location = new System.Drawing.Point(416, 63);
+            this.PerspBox.Location = new System.Drawing.Point(416, 76);
             this.PerspBox.Name = "PerspBox";
             this.PerspBox.Size = new System.Drawing.Size(118, 17);
             this.PerspBox.TabIndex = 5;
@@ -132,7 +133,7 @@
             // RstButton
             // 
             this.RstButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.RstButton.Location = new System.Drawing.Point(416, 176);
+            this.RstButton.Location = new System.Drawing.Point(416, 189);
             this.RstButton.Name = "RstButton";
             this.RstButton.Size = new System.Drawing.Size(156, 30);
             this.RstButton.TabIndex = 8;
@@ -144,19 +145,19 @@
             // 
             this.SeeThru.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.SeeThru.AutoSize = true;
-            this.SeeThru.Location = new System.Drawing.Point(416, 347);
+            this.SeeThru.Location = new System.Drawing.Point(416, 352);
             this.SeeThru.Name = "SeeThru";
-            this.SeeThru.Size = new System.Drawing.Size(67, 17);
+            this.SeeThru.Size = new System.Drawing.Size(124, 17);
             this.SeeThru.TabIndex = 11;
             this.SeeThru.TabStop = false;
-            this.SeeThru.Text = "SeeThru";
+            this.SeeThru.Text = "Translucent Window";
             this.SeeThru.CheckedChanged += new System.EventHandler(this.SeeThru_CheckedChanged);
             // 
             // SWA
             // 
             this.SWA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.SWA.AutoSize = true;
-            this.SWA.Location = new System.Drawing.Point(416, 212);
+            this.SWA.Location = new System.Drawing.Point(416, 225);
             this.SWA.Name = "SWA";
             this.SWA.Size = new System.Drawing.Size(96, 17);
             this.SWA.TabIndex = 5;
@@ -168,7 +169,7 @@
             // 
             this.UVal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.UVal.AutoSize = true;
-            this.UVal.Location = new System.Drawing.Point(417, 86);
+            this.UVal.Location = new System.Drawing.Point(420, 99);
             this.UVal.Name = "UVal";
             this.UVal.Size = new System.Drawing.Size(74, 13);
             this.UVal.TabIndex = 13;
@@ -178,7 +179,7 @@
             // 
             this.VVal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.VVal.AutoSize = true;
-            this.VVal.Location = new System.Drawing.Point(420, 131);
+            this.VVal.Location = new System.Drawing.Point(420, 144);
             this.VVal.Name = "VVal";
             this.VVal.Size = new System.Drawing.Size(73, 13);
             this.VVal.TabIndex = 13;
@@ -188,7 +189,7 @@
             // 
             this.MirrorX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.MirrorX.AutoSize = true;
-            this.MirrorX.Location = new System.Drawing.Point(416, 281);
+            this.MirrorX.Location = new System.Drawing.Point(416, 294);
             this.MirrorX.Name = "MirrorX";
             this.MirrorX.Size = new System.Drawing.Size(62, 17);
             this.MirrorX.TabIndex = 5;
@@ -199,7 +200,7 @@
             // 
             this.MirrorY.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.MirrorY.AutoSize = true;
-            this.MirrorY.Location = new System.Drawing.Point(416, 304);
+            this.MirrorY.Location = new System.Drawing.Point(416, 317);
             this.MirrorY.Name = "MirrorY";
             this.MirrorY.Size = new System.Drawing.Size(62, 17);
             this.MirrorY.TabIndex = 5;
@@ -208,7 +209,7 @@
             // 
             // ResetNubsButton
             // 
-            this.ResetNubsButton.Location = new System.Drawing.Point(416, 245);
+            this.ResetNubsButton.Location = new System.Drawing.Point(416, 258);
             this.ResetNubsButton.Name = "ResetNubsButton";
             this.ResetNubsButton.Size = new System.Drawing.Size(75, 30);
             this.ResetNubsButton.TabIndex = 14;
@@ -220,7 +221,7 @@
             // 
             this.UAxis.AutoSize = false;
             this.UAxis.LargeChange = 1;
-            this.UAxis.Location = new System.Drawing.Point(417, 102);
+            this.UAxis.Location = new System.Drawing.Point(417, 115);
             this.UAxis.Maximum = 100;
             this.UAxis.Name = "UAxis";
             this.UAxis.Size = new System.Drawing.Size(150, 24);
@@ -233,7 +234,7 @@
             // 
             this.VAxis.AutoSize = false;
             this.VAxis.LargeChange = 1;
-            this.VAxis.Location = new System.Drawing.Point(417, 147);
+            this.VAxis.Location = new System.Drawing.Point(417, 160);
             this.VAxis.Maximum = 100;
             this.VAxis.Name = "VAxis";
             this.VAxis.Size = new System.Drawing.Size(150, 24);
@@ -245,7 +246,8 @@
             // AaTrack
             // 
             this.AaTrack.AutoSize = false;
-            this.AaTrack.Location = new System.Drawing.Point(417, 34);
+            this.AaTrack.LargeChange = 1;
+            this.AaTrack.Location = new System.Drawing.Point(417, 47);
             this.AaTrack.Maximum = 6;
             this.AaTrack.Minimum = 1;
             this.AaTrack.Name = "AaTrack";
@@ -255,11 +257,21 @@
             this.AaTrack.Value = 1;
             this.AaTrack.Scroll += new System.EventHandler(this.AaLevel_Scroll);
             // 
+            // AaLabel
+            // 
+            this.AaLabel.AutoSize = true;
+            this.AaLabel.Location = new System.Drawing.Point(420, 32);
+            this.AaLabel.Name = "AaLabel";
+            this.AaLabel.Size = new System.Drawing.Size(60, 13);
+            this.AaLabel.TabIndex = 18;
+            this.AaLabel.Text = "Antialiasing";
+            // 
             // EffectPluginConfigDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(584, 412);
+            this.Controls.Add(this.AaLabel);
             this.Controls.Add(this.AaTrack);
             this.Controls.Add(this.VAxis);
             this.Controls.Add(this.UAxis);
@@ -278,7 +290,6 @@
             this.Controls.Add(this.buttonCancel);
             this.HelpButton = true;
             this.KeyPreview = true;
-            this.Location = new System.Drawing.Point(0, 0);
             this.Name = "EffectPluginConfigDialog";
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.EffectPluginConfigDialog_HelpButtonClicked);
             this.Load += new System.EventHandler(this.EffectPluginConfigDialog_Load);
@@ -312,5 +323,6 @@
         private System.Windows.Forms.TrackBar UAxis;
         private System.Windows.Forms.TrackBar VAxis;
         private System.Windows.Forms.TrackBar AaTrack;
+        private System.Windows.Forms.Label AaLabel;
     }
 }

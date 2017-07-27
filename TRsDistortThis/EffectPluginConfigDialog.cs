@@ -385,6 +385,7 @@ namespace TRsDistortThis
 
         private void AlphaBox_CheckedChanged(object sender, EventArgs e)
         {
+            AaLabel.Enabled = AlphaBox.Checked;
             AaTrack.Enabled = AlphaBox.Checked;
             FinishTokenUpdate();
         }
