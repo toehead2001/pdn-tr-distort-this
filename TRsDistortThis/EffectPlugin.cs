@@ -55,7 +55,7 @@ namespace TRsDistortThis
             C = new PointD(Corners[2].X, Corners[2].Y);
             D = new PointD(Corners[3].X, Corners[3].Y);
 
-            Antialias = (AaAmount > 1);
+            Antialias = (AaAmount > 1) && AlphaTrans;
             if (Antialias)
                 SetupForSubpixels(AaAmount, AaAmount);
 
