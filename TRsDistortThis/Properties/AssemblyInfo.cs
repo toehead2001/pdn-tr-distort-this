@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("toe_head2001")]
 [assembly: AssemblyProduct("DistortThis")]
-[assembly: AssemblyCopyright("Copyright 2017 © toe_head2001, TechnoRobbo")]
+[assembly: AssemblyCopyright("Copyright © 2018 toe_head2001, TechnoRobbo")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,4 +29,4 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("2.8.0.0")]
+[assembly: AssemblyVersion("2.9.0.0")]
