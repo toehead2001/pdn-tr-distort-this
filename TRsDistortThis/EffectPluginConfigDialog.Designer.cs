@@ -57,27 +57,32 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonCancel.Location = new System.Drawing.Point(497, 377);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 30);
             this.buttonCancel.TabIndex = 1;
             this.buttonCancel.TabStop = false;
             this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonOK.Location = new System.Drawing.Point(416, 377);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 30);
             this.buttonOK.TabIndex = 2;
             this.buttonOK.TabStop = false;
             this.buttonOK.Text = "OK";
+            this.buttonOK.UseVisualStyleBackColor = true;
             // 
             // PreViewBMP
             // 
             this.PreViewBMP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.PreViewBMP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PreViewBMP.Controls.Add(this.cParam);
             this.PreViewBMP.Location = new System.Drawing.Point(5, 5);
             this.PreViewBMP.Name = "PreViewBMP";
@@ -133,12 +138,14 @@
             // RstButton
             // 
             this.RstButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.RstButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.RstButton.Location = new System.Drawing.Point(416, 189);
             this.RstButton.Name = "RstButton";
             this.RstButton.Size = new System.Drawing.Size(156, 30);
             this.RstButton.TabIndex = 8;
             this.RstButton.TabStop = false;
             this.RstButton.Text = "Reset Nubs and Work Area";
+            this.RstButton.UseVisualStyleBackColor = true;
             this.RstButton.Click += new System.EventHandler(this.RstButton_Click);
             // 
             // SeeThru
@@ -209,6 +216,7 @@
             // 
             // ResetNubsButton
             // 
+            this.ResetNubsButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.ResetNubsButton.Location = new System.Drawing.Point(416, 258);
             this.ResetNubsButton.Name = "ResetNubsButton";
             this.ResetNubsButton.Size = new System.Drawing.Size(75, 30);
@@ -288,9 +296,12 @@
             this.Controls.Add(this.PreViewBMP);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
+            this.ForeColor = System.Drawing.Color.Black;
             this.HelpButton = true;
             this.KeyPreview = true;
+            this.Location = new System.Drawing.Point(0, 0);
             this.Name = "EffectPluginConfigDialog";
+            this.UseAppThemeColors = true;
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.EffectPluginConfigDialog_HelpButtonClicked);
             this.Load += new System.EventHandler(this.EffectPluginConfigDialog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PreViewBMP)).EndInit();

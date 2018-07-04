@@ -81,6 +81,10 @@ namespace TRsDistortThis
 
         private void EffectPluginConfigDialog_Load(object sender, EventArgs e)
         {
+            // Dark Theme Fixes
+            cParam.ForeColor = this.ForeColor;
+            cParam.BackColor = this.BackColor;
+
             float ratio = (float)EffectSourceSurface.Height / EffectSourceSurface.Width;
 
             if (ratio > 1)
