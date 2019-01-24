@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace TRsDistortThis
 {
-    struct PointD
+    internal struct PointD
     {
         internal double X { get; set; }
         internal double Y { get; set; }
@@ -15,7 +15,7 @@ namespace TRsDistortThis
         }
     }
 
-    static class MyUtils
+    internal static class MyUtils
     {
         internal static double xproduct(PointD A, PointD B, PointD C)
         {
