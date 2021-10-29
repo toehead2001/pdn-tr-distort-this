@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2035
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TRsDistortThis", "TRsDistortThis\TRsDistortThis.csproj", "{67D7D5D7-FB08-4896-B32F-B33162DA8517}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TRsDistortThis", "TRsDistortThis\TRsDistortThis.csproj", "{67D7D5D7-FB08-4896-B32F-B33162DA8517}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BD4399B2-F1CF-4D26-BEB2-9B8E83FFE14B}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +23,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {43721CEB-0E8D-43DF-9EB8-769ACE387107}
 	EndGlobalSection
 EndGlobal

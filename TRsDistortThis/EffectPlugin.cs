@@ -22,7 +22,7 @@ namespace TRsDistortThis
         private readonly static Bitmap StaticImage = new Bitmap(typeof(EffectPlugin), "DistortThis.png");
 
         public EffectPlugin()
-            : base(StaticName, StaticImage, SubmenuNames.Distort, EffectFlags.Configurable)
+            : base(StaticName, StaticImage, SubmenuNames.Distort, new EffectOptions { Flags = EffectFlags.Configurable })
         {
         }
 

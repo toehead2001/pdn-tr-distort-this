@@ -22,6 +22,7 @@ namespace TRsDistortThis
         private Point[] tweak = new Point[4];
         private bool initialize = true;
         private bool nonNumberEntered = true;
+        private Rectangle srcBounds = Rectangle.Empty;
         private readonly Keys[] keyCheck =
         {
             Keys.D0, Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9,
@@ -85,7 +86,8 @@ namespace TRsDistortThis
             cParam.ForeColor = this.ForeColor;
             cParam.BackColor = this.BackColor;
 
-            float ratio = (float)EffectSourceSurface.Height / EffectSourceSurface.Width;
+            srcBounds = this.EnvironmentParameters.SourceSurface.Bounds;
+            float ratio = (float)srcBounds.Height / srcBounds.Width;
 
             if (ratio > 1)
             {
@@ -105,8 +107,8 @@ namespace TRsDistortThis
             PreViewBMP.Image = new Bitmap(PreViewBMP.ClientRectangle.Width, PreViewBMP.ClientRectangle.Height);
             using (Surface tmp = new Surface(PreViewBMP.ClientRectangle.Size))
             {
-                ResamplingAlgorithm algorithm = (EffectSourceSurface.Width > tmp.Width || EffectSourceSurface.Height > tmp.Height) ? ResamplingAlgorithm.Fant : ResamplingAlgorithm.Bicubic;
-                tmp.FitSurface(algorithm, EffectSourceSurface);
+                ResamplingAlgorithm algorithm = (srcBounds.Width > tmp.Width || srcBounds.Height > tmp.Height) ? ResamplingAlgorithm.Fant : ResamplingAlgorithm.Bicubic;
+                tmp.FitSurface(algorithm, this.EnvironmentParameters.SourceSurface);
                 using (Graphics g = Graphics.FromImage(PreViewBMP.Image))
                     g.DrawImage(tmp.CreateAliasedBitmap(), 0, 0);
 
@@ -117,8 +119,8 @@ namespace TRsDistortThis
             GC.Collect();
 
             this.Opacity = 1;
-            ConvertXY.X = (float)(EffectSourceSurface.Width - 1) / (PreViewBMP.ClientRectangle.Width - 1);
-            ConvertXY.Y = (float)(EffectSourceSurface.Height - 1) / (PreViewBMP.ClientRectangle.Height - 1);
+            ConvertXY.X = (float)(srcBounds.Width - 1) / (PreViewBMP.ClientRectangle.Width - 1);
+            ConvertXY.Y = (float)(srcBounds.Height - 1) / (PreViewBMP.ClientRectangle.Height - 1);
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             this.Text = EffectPlugin.StaticName + " ver. " + version.Major + "." + version.Minor + "." + version.Build;
             ReZet(initialize);
@@ -180,7 +182,7 @@ namespace TRsDistortThis
 
                 for (int i = 0; i < 4; i++)
                 {
-                    Corners[i] = getCorner(vCorners[i], tweak[i]).Clamp(EffectSourceSurface.Bounds);
+                    Corners[i] = getCorner(vCorners[i], tweak[i]).Clamp(srcBounds);
                 }
                 sCorners = Corners.ToRectangle();
                 if (sCorners.Width <= 0 || sCorners.Height <= 0)
@@ -315,7 +317,7 @@ namespace TRsDistortThis
 
             for (int i = 0; i < 4; i++)
             {
-                Corners[i] = getCorner(vCorners[i], tweak[i]).Clamp(EffectSourceSurface.Bounds);
+                Corners[i] = getCorner(vCorners[i], tweak[i]).Clamp(srcBounds);
             }
             FinishTokenUpdate();
         }
@@ -324,8 +326,8 @@ namespace TRsDistortThis
         {
             if (newSet)
             {
-                Corners = EffectSourceSurface.Bounds.ToPointArray();
-                sCorners = EffectSourceSurface.Bounds;
+                Corners = srcBounds.ToPointArray();
+                sCorners = srcBounds;
                 vCorners = PreViewBMP.ClientRectangle.ToPointArray();
 
                 anchor = PreViewBMP.ClientRectangle;// MyRect(vCorners);
@@ -448,7 +450,7 @@ namespace TRsDistortThis
 
                 if (tweaked)
                 {
-                    Corners[CornerSelect] = Corners[CornerSelect].Clamp(EffectSourceSurface.Bounds);
+                    Corners[CornerSelect] = Corners[CornerSelect].Clamp(srcBounds);
                     vCorners[CornerSelect] = getVcorner(Corners[CornerSelect]);
                     tweak[CornerSelect] = getTweak(Corners[CornerSelect], vCorners[CornerSelect]);
                     FinishTokenUpdate();
@@ -520,7 +522,7 @@ namespace TRsDistortThis
                 return;
 
             Point p = new Point(x, y);
-            if (!EffectSourceSurface.Bounds.Contains(p))
+            if (!srcBounds.Contains(p))
                 return;
 
             cParam.Visible = false;
