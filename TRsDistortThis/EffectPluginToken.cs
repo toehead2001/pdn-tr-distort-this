@@ -17,19 +17,19 @@ namespace TRsDistortThis
         internal int VValue { get; set; }
         internal bool initialize { get; set; }
 
-        internal EffectPluginConfigToken(Point[] corners, Rectangle scorners, Rectangle anchor, Point[] vcorners, Point[] tweak, bool alphatrans, int aalevel, bool perspective, int uvalue, int vvalue, bool init)
+        internal EffectPluginConfigToken()
         {
-            this.Corners = corners;
-            this.vCorners = vcorners;
-            this.sCorners = scorners;
-            this.Tweak = tweak;
-            this.AlphaTrans = alphatrans;
-            this.AaLevel = aalevel;
-            this.Perspective = perspective;
-            this.UValue = uvalue;
-            this.VValue = vvalue;
-            this.initialize = init;
-            this.Anchor = anchor;
+            this.Corners = new Point[4];
+            this.vCorners = new Point[4];
+            this.sCorners = Rectangle.Empty;
+            this.Tweak = new Point[4];
+            this.AlphaTrans = true;
+            this.AaLevel = 1;
+            this.Perspective = true;
+            this.UValue = 100;
+            this.VValue = 100;
+            this.initialize = true;
+            this.Anchor = Rectangle.Empty;
         }
 
         protected EffectPluginConfigToken(EffectPluginConfigToken copyMe) : base(copyMe)

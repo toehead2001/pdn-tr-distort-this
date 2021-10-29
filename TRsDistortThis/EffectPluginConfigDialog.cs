@@ -1,11 +1,12 @@
+using PaintDotNet;
+using PaintDotNet.Effects;
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Windows.Forms;
-using System.Reflection;
-using PaintDotNet.Effects;
-using PaintDotNet;
 using System.Linq;
+using System.Reflection;
+using System.Windows.Forms;
 
 namespace TRsDistortThis
 {
@@ -39,8 +40,7 @@ namespace TRsDistortThis
 
         protected override void InitialInitToken()
         {
-            theEffectToken = new EffectPluginConfigToken(new Point[4], new Rectangle(), new Rectangle(), new Point[4],
-                new Point[4], true, 1, true, 100, 100, true);
+            theEffectToken = new EffectPluginConfigToken();
         }
 
         protected override void InitTokenFromDialog()
@@ -80,7 +80,7 @@ namespace TRsDistortThis
             SWAFlag = false;
         }
 
-        private void EffectPluginConfigDialog_Load(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
             // Dark Theme Fixes
             cParam.ForeColor = this.ForeColor;
@@ -124,6 +124,8 @@ namespace TRsDistortThis
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             this.Text = EffectPlugin.StaticName + " ver. " + version.Major + "." + version.Minor + "." + version.Build;
             ReZet(initialize);
+
+            base.OnLoad(e);
         }
 
         private void PreViewBMP_MouseDown(object sender, MouseEventArgs e)
@@ -342,7 +344,6 @@ namespace TRsDistortThis
             }
             PreViewBMP.Refresh();
             FinishTokenUpdate();
-            //test(Corners);
         }
 
         private Point getTweak(Point C, Point v)
@@ -361,13 +362,6 @@ namespace TRsDistortThis
         {
             return new Point((int)Math.Round(v.X * ConvertXY.X + t.X),
                              (int)Math.Round(v.Y * ConvertXY.Y + t.Y));
-        }
-
-        private void test(Point[] v)
-        {
-            //test
-            string s = String.Empty;
-            foreach (Point i in v) s += " " + i.ToString();
         }
 
         private void PerspBox_CheckedChanged(object sender, EventArgs e)
@@ -545,16 +539,19 @@ namespace TRsDistortThis
             cParam.Focus();
         }
 
-        private void EffectPluginConfigDialog_HelpButtonClicked(object sender, System.ComponentModel.CancelEventArgs e)
+        protected override void OnHelpButtonClicked(CancelEventArgs e)
         {
             e.Cancel = true;
-            string helpMessage = "The control nubs can be manipulated in the following ways:\n";
-            helpMessage += "\n";
-            helpMessage += "Arrow Keys move the Selected Corner by 1px\n";
-            helpMessage += "\n";
-            helpMessage += "Tab Key to Select the Next Corner.\n";
-            helpMessage += "\n";
-            helpMessage += "Double Click to input coordinates manually.\n";
+            base.OnHelpButtonClicked(e);
+
+            string helpMessage = "The control nubs can be manipulated in the following ways:\n"
+                + "\n"
+                + "  - Arrow Keys move the Selected Corner by 1px\n"
+                + "\n"
+                + "  - Tab Key to Select the Next Corner.\n"
+                + "\n"
+                + "  - Double Click to input coordinates manually.\n";
+
             MessageBox.Show(helpMessage, "Help");
         }
     }

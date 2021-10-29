@@ -302,8 +302,6 @@
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "EffectPluginConfigDialog";
             this.UseAppThemeColors = true;
-            this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.EffectPluginConfigDialog_HelpButtonClicked);
-            this.Load += new System.EventHandler(this.EffectPluginConfigDialog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PreViewBMP)).EndInit();
             this.PreViewBMP.ResumeLayout(false);
             this.PreViewBMP.PerformLayout();
