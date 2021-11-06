@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 
 namespace TRsDistortThis
 {
@@ -76,6 +77,11 @@ namespace TRsDistortThis
                 X = rect.Width / 2 + rect.Left,
                 Y = rect.Height / 2 + rect.Top
             };
+        }
+
+        internal static int Average(params int[] integers)
+        {
+            return (int)MathF.Round(integers.Sum() / (float)integers.Length);
         }
 
         internal static Rectangle ToRectangle(this Point[] pts) //fix rotation

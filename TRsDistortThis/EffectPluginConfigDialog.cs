@@ -20,6 +20,13 @@ namespace TRsDistortThis
         private bool moveflag = false;
         private bool SWAFlag = false;
         private int CornerSelect = -1;
+        private Point cornerOrigin = Point.Empty;
+        private int sideSelected = -1;
+        private Point sideOriginA = Point.Empty;
+        private Point sideOriginB = Point.Empty;
+        private Point mouseDownPoint = Point.Empty;
+        private Point xMirrorPaintPoint = Point.Empty;
+        private Point yMirrorPaintPoint = Point.Empty;
         private Point[] tweak = new Point[4];
         private bool initialize = true;
         private bool nonNumberEntered = true;
@@ -138,6 +145,7 @@ namespace TRsDistortThis
             }
             else if (CheckNode(e.Location))
             {
+                this.mouseDownPoint = e.Location;
                 symmetry(e.Location);
                 moveflag = true;
                 PreViewBMP.Refresh();
@@ -152,6 +160,36 @@ namespace TRsDistortThis
                     {
                         results = true;
                         CornerSelect = i;
+                        this.sideSelected = -1;
+                        this.cornerOrigin = vCorners[i];
+                        break;
+                    }
+
+                    Point sideNub = MyUtils.CenterPoint(new[] { vCorners[i], vCorners[(i > 2) ? 0 : i + 1] });
+                    if (MyUtils.Pythag(sideNub, hit) <= 5)
+                    {
+                        results = true;
+                        this.sideSelected = i;
+                        CornerSelect = -1;
+                        switch (i)
+                        {
+                            case 0:
+                                this.sideOriginA = vCorners[0];
+                                this.sideOriginB = vCorners[1];
+                                break;
+                            case 1:
+                                this.sideOriginA = vCorners[1];
+                                this.sideOriginB = vCorners[2];
+                                break;
+                            case 2:
+                                this.sideOriginA = vCorners[2];
+                                this.sideOriginB = vCorners[3];
+                                break;
+                            case 3:
+                                this.sideOriginA = vCorners[3];
+                                this.sideOriginB = vCorners[0];
+                                break;
+                        }
                         break;
                     }
                 }
@@ -212,29 +250,93 @@ namespace TRsDistortThis
 
         private void symmetry(Point e)
         {
-            vCorners[CornerSelect] = e.Clamp(PreViewBMP.ClientRectangle);
+            int xDist = e.X - this.mouseDownPoint.X;
+            int yDist = e.Y - this.mouseDownPoint.Y;
 
-            Point pmid = vCorners.CenterPoint();
-            int mx = pmid.X + (pmid.X - e.X);
-            int my = pmid.Y + (pmid.Y - e.Y);
-            if (MirrorX.Checked && MirrorY.Checked)
+            Rectangle bounds = this.PreViewBMP.ClientRectangle;
+
+            if (CornerSelect > -1)
             {
-                int[] sym = { 1, 0, 3, 2 };
-                vCorners[sym[CornerSelect]] = new Point(mx, e.Y).Clamp(PreViewBMP.ClientRectangle);
-                int[] sym2 = { 3, 2, 1, 0 };
-                vCorners[sym2[CornerSelect]] = new Point(e.X, my).Clamp(PreViewBMP.ClientRectangle);
-                int[] sym3 = { 2, 3, 0, 1 };
-                vCorners[sym3[CornerSelect]] = new Point(mx, my).Clamp(PreViewBMP.ClientRectangle);
+                Point nubDest = new Point(this.cornerOrigin.X + xDist, this.cornerOrigin.Y + yDist).Clamp(bounds);
+
+                bool mirrorX = MirrorX.Checked;
+                bool mirrorY = MirrorY.Checked;
+
+                if (mirrorX || mirrorY)
+                {
+                    int[] xSym = { 1, 0, 3, 2 };
+                    int[] ySym = { 3, 2, 1, 0 };
+                    int[] dSym = { 2, 3, 0, 1 };
+
+                    int xMidPoint = MyUtils.Average(vCorners[xSym[CornerSelect]].X, vCorners[CornerSelect].X);
+                    int mx = xMidPoint + (xMidPoint - nubDest.X);
+
+                    int yMidPoint = MyUtils.Average(vCorners[ySym[CornerSelect]].Y, vCorners[CornerSelect].Y);
+                    int my = yMidPoint + (yMidPoint - nubDest.Y);
+
+                    xMirrorPaintPoint = new Point(xMidPoint, nubDest.Y);
+                    yMirrorPaintPoint = new Point(nubDest.X, yMidPoint);
+
+                    if (mirrorX && mirrorY)
+                    {
+                        vCorners[dSym[CornerSelect]] = new Point(mx, my).Clamp(bounds);
+                    }
+
+                    if (mirrorX)
+                    {
+                        vCorners[xSym[CornerSelect]] = new Point(mx, nubDest.Y).Clamp(bounds);
+                    }
+
+                    if (mirrorY)
+                    {
+                        vCorners[ySym[CornerSelect]] = new Point(nubDest.X, my).Clamp(bounds);
+                    }
+                }
+
+                vCorners[CornerSelect] = nubDest;
             }
-            else if (MirrorX.Checked)
+            else if (this.sideSelected > -1)
             {
-                int[] sym = { 1, 0, 3, 2 };
-                vCorners[sym[CornerSelect]] = new Point(mx, e.Y).Clamp(PreViewBMP.ClientRectangle);
-            }
-            else if (MirrorY.Checked)
-            {
-                int[] sym = { 3, 2, 1, 0 };
-                vCorners[sym[CornerSelect]] = new Point(e.X, my).Clamp(PreViewBMP.ClientRectangle);
+                Point sideDestA = new Point(this.sideOriginA.X + xDist, this.sideOriginA.Y + yDist);
+                Point sideDestB = new Point(this.sideOriginB.X + xDist, this.sideOriginB.Y + yDist);
+
+                if (!bounds.Contains(sideDestA))
+                {
+                    Point clampedA = sideDestA.Clamp(bounds);
+                    Point newDist = new Point(sideDestA.X - clampedA.X, sideDestA.Y - clampedA.Y);
+
+                    sideDestA = new Point(sideDestA.X - newDist.X, sideDestA.Y - newDist.Y);
+                    sideDestB = new Point(sideDestB.X - newDist.X, sideDestB.Y - newDist.Y);
+                }
+                
+                if (!bounds.Contains(sideDestB))
+                {
+                    Point clampedB = sideDestB.Clamp(bounds);
+                    Point newDist = new Point(sideDestB.X - clampedB.X, sideDestB.Y - clampedB.Y);
+
+                    sideDestA = new Point(sideDestA.X - newDist.X, sideDestA.Y - newDist.Y);
+                    sideDestB = new Point(sideDestB.X - newDist.X, sideDestB.Y - newDist.Y);
+                }
+
+                switch (this.sideSelected)
+                {
+                    case 0:
+                        vCorners[0] = sideDestA;
+                        vCorners[1] = sideDestB;
+                        break;
+                    case 1:
+                        vCorners[1] = sideDestA;
+                        vCorners[2] = sideDestB;
+                        break;
+                    case 2:
+                        vCorners[2] = sideDestA;
+                        vCorners[3] = sideDestB;
+                        break;
+                    case 3:
+                        vCorners[3] = sideDestA;
+                        vCorners[0] = sideDestB;
+                        break;
+                }
             }
 
             for (int i = 0; i < 4; i++) Corners[i] = getCorner(vCorners[i], Point.Empty);
@@ -299,11 +401,45 @@ namespace TRsDistortThis
                 e.Graphics.DrawPolygon(vCornersPen, vCorners);
             }
 
+            if (moveflag && this.sideSelected == -1 && this.CornerSelect > -1)
+            {
+                bool mirrorX = MirrorX.Checked;
+                bool mirrorY = MirrorY.Checked;
+                if (mirrorX || mirrorY)
+                {
+                    if (mirrorX)
+                    {
+                        e.Graphics.DrawLine(Pens.DimGray, xMirrorPaintPoint.X, xMirrorPaintPoint.Y - 10, xMirrorPaintPoint.X, xMirrorPaintPoint.Y + 10);
+                    }
+
+                    if (mirrorY)
+                    {
+                        e.Graphics.DrawLine(Pens.DimGray, yMirrorPaintPoint.X - 10, yMirrorPaintPoint.Y, yMirrorPaintPoint.X + 10, yMirrorPaintPoint.Y);
+                    }
+
+                    if (mirrorX && mirrorY)
+                    {
+                        int oppositeLR = xMirrorPaintPoint.Y - (xMirrorPaintPoint.Y - yMirrorPaintPoint.Y) * 2;
+                        e.Graphics.DrawLine(Pens.DimGray, xMirrorPaintPoint.X, oppositeLR - 10, xMirrorPaintPoint.X, oppositeLR + 10);
+                        int oppositeTB = yMirrorPaintPoint.X - (yMirrorPaintPoint.X - xMirrorPaintPoint.X) * 2;
+                        e.Graphics.DrawLine(Pens.DimGray, oppositeTB - 10, yMirrorPaintPoint.Y, oppositeTB + 10, yMirrorPaintPoint.Y);
+                    }
+                }
+            }
+
             for (int i = 0; i < 4; i++)
             {
                 Rectangle nubPos = new Rectangle(vCorners[i].X - 5, vCorners[i].Y - 5, 10, 10);
                 e.Graphics.FillEllipse(i == CornerSelect ? Brushes.LightBlue : Brushes.White, nubPos);
                 e.Graphics.DrawEllipse(i == CornerSelect ? Pens.DarkBlue : Pens.Black, nubPos);
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                Point sideNub = MyUtils.CenterPoint(new[] { vCorners[i], vCorners[(i > 2) ? 0 : i + 1] });
+                Rectangle nubPos = new Rectangle(sideNub.X - 4, sideNub.Y - 4, 8, 8);
+                e.Graphics.FillEllipse(i == sideSelected ? Brushes.LightBlue : Brushes.White, nubPos);
+                e.Graphics.DrawEllipse(i == sideSelected ? Pens.DarkBlue : Pens.DimGray, nubPos);
             }
         }
 
