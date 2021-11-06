@@ -58,7 +58,7 @@
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.buttonCancel.Location = new System.Drawing.Point(497, 377);
+            this.buttonCancel.Location = new System.Drawing.Point(597, 470);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 30);
             this.buttonCancel.TabIndex = 1;
@@ -71,7 +71,7 @@
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.buttonOK.Location = new System.Drawing.Point(416, 377);
+            this.buttonOK.Location = new System.Drawing.Point(516, 470);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 30);
             this.buttonOK.TabIndex = 2;
@@ -86,7 +86,7 @@
             this.PreViewBMP.Controls.Add(this.cParam);
             this.PreViewBMP.Location = new System.Drawing.Point(5, 5);
             this.PreViewBMP.Name = "PreViewBMP";
-            this.PreViewBMP.Size = new System.Drawing.Size(402, 402);
+            this.PreViewBMP.Size = new System.Drawing.Size(502, 502);
             this.PreViewBMP.TabIndex = 3;
             this.PreViewBMP.TabStop = false;
             this.PreViewBMP.Paint += new System.Windows.Forms.PaintEventHandler(this.PreViewBMP_Paint);
@@ -97,9 +97,9 @@
             // 
             // cParam
             // 
-            this.cParam.Location = new System.Drawing.Point(150, 190);
+            this.cParam.Location = new System.Drawing.Point(200, 240);
             this.cParam.Name = "cParam";
-            this.cParam.Size = new System.Drawing.Size(100, 20);
+            this.cParam.Size = new System.Drawing.Size(100, 23);
             this.cParam.TabIndex = 0;
             this.cParam.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.cParam.Visible = false;
@@ -114,9 +114,9 @@
             this.AlphaBox.AutoSize = true;
             this.AlphaBox.Checked = true;
             this.AlphaBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.AlphaBox.Location = new System.Drawing.Point(416, 12);
+            this.AlphaBox.Location = new System.Drawing.Point(516, 12);
             this.AlphaBox.Name = "AlphaBox";
-            this.AlphaBox.Size = new System.Drawing.Size(113, 17);
+            this.AlphaBox.Size = new System.Drawing.Size(121, 19);
             this.AlphaBox.TabIndex = 4;
             this.AlphaBox.Text = "Alpha Transparent";
             this.AlphaBox.CheckedChanged += new System.EventHandler(this.AlphaBox_CheckedChanged);
@@ -127,9 +127,9 @@
             this.PerspBox.AutoSize = true;
             this.PerspBox.Checked = true;
             this.PerspBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.PerspBox.Location = new System.Drawing.Point(416, 76);
+            this.PerspBox.Location = new System.Drawing.Point(516, 117);
             this.PerspBox.Name = "PerspBox";
-            this.PerspBox.Size = new System.Drawing.Size(118, 17);
+            this.PerspBox.Size = new System.Drawing.Size(125, 19);
             this.PerspBox.TabIndex = 5;
             this.PerspBox.TabStop = false;
             this.PerspBox.Text = "Forced Perspective";
@@ -139,7 +139,7 @@
             // 
             this.RstButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.RstButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.RstButton.Location = new System.Drawing.Point(416, 189);
+            this.RstButton.Location = new System.Drawing.Point(516, 255);
             this.RstButton.Name = "RstButton";
             this.RstButton.Size = new System.Drawing.Size(156, 30);
             this.RstButton.TabIndex = 8;
@@ -152,9 +152,9 @@
             // 
             this.SeeThru.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.SeeThru.AutoSize = true;
-            this.SeeThru.Location = new System.Drawing.Point(416, 352);
+            this.SeeThru.Location = new System.Drawing.Point(516, 445);
             this.SeeThru.Name = "SeeThru";
-            this.SeeThru.Size = new System.Drawing.Size(124, 17);
+            this.SeeThru.Size = new System.Drawing.Size(133, 19);
             this.SeeThru.TabIndex = 11;
             this.SeeThru.TabStop = false;
             this.SeeThru.Text = "Translucent Window";
@@ -164,9 +164,9 @@
             // 
             this.SWA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.SWA.AutoSize = true;
-            this.SWA.Location = new System.Drawing.Point(416, 225);
+            this.SWA.Location = new System.Drawing.Point(516, 291);
             this.SWA.Name = "SWA";
-            this.SWA.Size = new System.Drawing.Size(96, 17);
+            this.SWA.Size = new System.Drawing.Size(100, 19);
             this.SWA.TabIndex = 5;
             this.SWA.TabStop = false;
             this.SWA.Text = "Set Work Area";
@@ -176,9 +176,9 @@
             // 
             this.UVal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.UVal.AutoSize = true;
-            this.UVal.Location = new System.Drawing.Point(420, 99);
+            this.UVal.Location = new System.Drawing.Point(527, 140);
             this.UVal.Name = "UVal";
-            this.UVal.Size = new System.Drawing.Size(74, 13);
+            this.UVal.Size = new System.Drawing.Size(77, 15);
             this.UVal.TabIndex = 13;
             this.UVal.Text = "U Value 100%";
             // 
@@ -186,9 +186,9 @@
             // 
             this.VVal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.VVal.AutoSize = true;
-            this.VVal.Location = new System.Drawing.Point(420, 144);
+            this.VVal.Location = new System.Drawing.Point(527, 185);
             this.VVal.Name = "VVal";
-            this.VVal.Size = new System.Drawing.Size(73, 13);
+            this.VVal.Size = new System.Drawing.Size(76, 15);
             this.VVal.TabIndex = 13;
             this.VVal.Text = "V Value 100%";
             // 
@@ -196,9 +196,9 @@
             // 
             this.MirrorX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.MirrorX.AutoSize = true;
-            this.MirrorX.Location = new System.Drawing.Point(416, 294);
+            this.MirrorX.Location = new System.Drawing.Point(516, 379);
             this.MirrorX.Name = "MirrorX";
-            this.MirrorX.Size = new System.Drawing.Size(62, 17);
+            this.MirrorX.Size = new System.Drawing.Size(69, 19);
             this.MirrorX.TabIndex = 5;
             this.MirrorX.TabStop = false;
             this.MirrorX.Text = "Mirror X";
@@ -207,17 +207,18 @@
             // 
             this.MirrorY.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.MirrorY.AutoSize = true;
-            this.MirrorY.Location = new System.Drawing.Point(416, 317);
+            this.MirrorY.Location = new System.Drawing.Point(516, 402);
             this.MirrorY.Name = "MirrorY";
-            this.MirrorY.Size = new System.Drawing.Size(62, 17);
+            this.MirrorY.Size = new System.Drawing.Size(69, 19);
             this.MirrorY.TabIndex = 5;
             this.MirrorY.TabStop = false;
             this.MirrorY.Text = "Mirror Y";
             // 
             // ResetNubsButton
             // 
+            this.ResetNubsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ResetNubsButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.ResetNubsButton.Location = new System.Drawing.Point(416, 258);
+            this.ResetNubsButton.Location = new System.Drawing.Point(516, 316);
             this.ResetNubsButton.Name = "ResetNubsButton";
             this.ResetNubsButton.Size = new System.Drawing.Size(75, 30);
             this.ResetNubsButton.TabIndex = 14;
@@ -227,12 +228,13 @@
             // 
             // UAxis
             // 
+            this.UAxis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.UAxis.AutoSize = false;
             this.UAxis.LargeChange = 1;
-            this.UAxis.Location = new System.Drawing.Point(417, 115);
+            this.UAxis.Location = new System.Drawing.Point(516, 156);
             this.UAxis.Maximum = 100;
             this.UAxis.Name = "UAxis";
-            this.UAxis.Size = new System.Drawing.Size(150, 24);
+            this.UAxis.Size = new System.Drawing.Size(158, 24);
             this.UAxis.TabIndex = 15;
             this.UAxis.TickStyle = System.Windows.Forms.TickStyle.None;
             this.UAxis.Value = 100;
@@ -240,12 +242,13 @@
             // 
             // VAxis
             // 
+            this.VAxis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.VAxis.AutoSize = false;
             this.VAxis.LargeChange = 1;
-            this.VAxis.Location = new System.Drawing.Point(417, 160);
+            this.VAxis.Location = new System.Drawing.Point(516, 201);
             this.VAxis.Maximum = 100;
             this.VAxis.Name = "VAxis";
-            this.VAxis.Size = new System.Drawing.Size(150, 24);
+            this.VAxis.Size = new System.Drawing.Size(158, 24);
             this.VAxis.TabIndex = 16;
             this.VAxis.TickStyle = System.Windows.Forms.TickStyle.None;
             this.VAxis.Value = 100;
@@ -253,13 +256,14 @@
             // 
             // AaTrack
             // 
+            this.AaTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.AaTrack.AutoSize = false;
             this.AaTrack.LargeChange = 1;
-            this.AaTrack.Location = new System.Drawing.Point(417, 47);
+            this.AaTrack.Location = new System.Drawing.Point(516, 64);
             this.AaTrack.Maximum = 6;
             this.AaTrack.Minimum = 1;
             this.AaTrack.Name = "AaTrack";
-            this.AaTrack.Size = new System.Drawing.Size(150, 24);
+            this.AaTrack.Size = new System.Drawing.Size(158, 24);
             this.AaTrack.TabIndex = 17;
             this.AaTrack.TickStyle = System.Windows.Forms.TickStyle.None;
             this.AaTrack.Value = 1;
@@ -267,10 +271,11 @@
             // 
             // AaLabel
             // 
+            this.AaLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.AaLabel.AutoSize = true;
-            this.AaLabel.Location = new System.Drawing.Point(420, 32);
+            this.AaLabel.Location = new System.Drawing.Point(519, 49);
             this.AaLabel.Name = "AaLabel";
-            this.AaLabel.Size = new System.Drawing.Size(60, 13);
+            this.AaLabel.Size = new System.Drawing.Size(69, 15);
             this.AaLabel.TabIndex = 18;
             this.AaLabel.Text = "Antialiasing";
             // 
@@ -278,7 +283,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(584, 412);
+            this.ClientSize = new System.Drawing.Size(684, 512);
             this.Controls.Add(this.AaLabel);
             this.Controls.Add(this.AaTrack);
             this.Controls.Add(this.VAxis);
@@ -299,7 +304,6 @@
             this.ForeColor = System.Drawing.Color.Black;
             this.HelpButton = true;
             this.KeyPreview = true;
-            this.Location = new System.Drawing.Point(0, 0);
             this.Name = "EffectPluginConfigDialog";
             this.UseAppThemeColors = true;
             ((System.ComponentModel.ISupportInitialize)(this.PreViewBMP)).EndInit();
