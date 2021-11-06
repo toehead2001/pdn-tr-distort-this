@@ -91,14 +91,14 @@ namespace TRsDistortThis
 
             if (ratio > 1)
             {
-                int tx = (int)Math.Round(PreViewBMP.ClientRectangle.Width / ratio);
-                int pos = (int)Math.Round((PreViewBMP.ClientRectangle.Width - tx) / 2f);
+                int tx = (int)MathF.Round(PreViewBMP.ClientRectangle.Width / ratio);
+                int pos = (int)MathF.Round((PreViewBMP.ClientRectangle.Width - tx) / 2f);
                 PreViewBMP.Bounds = new Rectangle(pos, PreViewBMP.Top, tx, PreViewBMP.Height);
             }
             else if (ratio < 1)
             {
-                int ty = (int)Math.Round(PreViewBMP.ClientRectangle.Height * ratio);
-                int pos = (int)Math.Round((PreViewBMP.ClientRectangle.Height - ty) / 2f);
+                int ty = (int)MathF.Round(PreViewBMP.ClientRectangle.Height * ratio);
+                int pos = (int)MathF.Round((PreViewBMP.ClientRectangle.Height - ty) / 2f);
                 PreViewBMP.Bounds = new Rectangle(PreViewBMP.Left, pos, PreViewBMP.ClientRectangle.Width, ty);
             }
             //=====make checkerboard
@@ -348,20 +348,20 @@ namespace TRsDistortThis
 
         private Point getTweak(Point C, Point v)
         {
-            return new Point((int)Math.Round(v.X * ConvertXY.X - C.X),
-                             (int)Math.Round(v.Y * ConvertXY.Y - C.Y));
+            return new Point((int)MathF.Round(v.X * ConvertXY.X - C.X),
+                             (int)MathF.Round(v.Y * ConvertXY.Y - C.Y));
         }
 
         private Point getVcorner(Point C)
         {
-            return new Point((int)Math.Round(C.X / ConvertXY.X),
-                             (int)Math.Round(C.Y / ConvertXY.Y));
+            return new Point((int)MathF.Round(C.X / ConvertXY.X),
+                             (int)MathF.Round(C.Y / ConvertXY.Y));
         }
 
         private Point getCorner(Point v, Point t)
         {
-            return new Point((int)Math.Round(v.X * ConvertXY.X + t.X),
-                             (int)Math.Round(v.Y * ConvertXY.Y + t.Y));
+            return new Point((int)MathF.Round(v.X * ConvertXY.X + t.X),
+                             (int)MathF.Round(v.Y * ConvertXY.Y + t.Y));
         }
 
         private void PerspBox_CheckedChanged(object sender, EventArgs e)
@@ -512,7 +512,7 @@ namespace TRsDistortThis
                 return;
 
             int x, y;
-            if (!Int32.TryParse(s[0], out x) || !Int32.TryParse(s[1], out y))
+            if (!int.TryParse(s[0], out x) || !int.TryParse(s[1], out y))
                 return;
 
             Point p = new Point(x, y);

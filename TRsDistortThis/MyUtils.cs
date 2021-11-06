@@ -53,8 +53,12 @@ namespace TRsDistortThis
 
         internal static Point CenterPoint(this Point[] source)
         {
-            Point tmp = new Point();
-            if (source.Length == 0) return tmp;
+            if (source.Length == 0)
+            {
+                return Point.Empty;
+            }
+
+            PointF tmp = new PointF();
             foreach (Point i in source)
             {
                 tmp.X += i.X;
@@ -62,7 +66,7 @@ namespace TRsDistortThis
             }
             tmp.X /= source.Length;
             tmp.Y /= source.Length;
-            return tmp;
+            return Point.Round(tmp);
         }
 
         internal static Point CenterPoint(this Rectangle rect)
@@ -90,12 +94,13 @@ namespace TRsDistortThis
 
         internal static Point[] ToPointArray(this Rectangle y)
         {
-            Point[] x = new Point[4];
-            x[0] = new Point(y.Left, y.Top);
-            x[1] = new Point(y.Width + y.Left - 1, y.Top);
-            x[2] = new Point(y.Width + y.Left - 1, y.Top + y.Height - 1);
-            x[3] = new Point(y.Left, y.Top + y.Height - 1);
-            return x;
+            return new Point[]
+            {
+                new Point(y.Left, y.Top),
+                new Point(y.Right - 1, y.Top),
+                new Point(y.Right - 1, y.Bottom - 1),
+                new Point(y.Left, y.Bottom - 1)
+            };
         }
     }
 }
