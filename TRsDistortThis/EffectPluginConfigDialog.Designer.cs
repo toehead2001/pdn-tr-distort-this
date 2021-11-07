@@ -97,6 +97,7 @@
             // 
             // cParam
             // 
+            this.cParam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cParam.Location = new System.Drawing.Point(200, 240);
             this.cParam.Name = "cParam";
             this.cParam.Size = new System.Drawing.Size(100, 23);
@@ -114,7 +115,7 @@
             this.AlphaBox.AutoSize = true;
             this.AlphaBox.Checked = true;
             this.AlphaBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.AlphaBox.Location = new System.Drawing.Point(516, 12);
+            this.AlphaBox.Location = new System.Drawing.Point(516, 20);
             this.AlphaBox.Name = "AlphaBox";
             this.AlphaBox.Size = new System.Drawing.Size(121, 19);
             this.AlphaBox.TabIndex = 4;
@@ -164,7 +165,7 @@
             // 
             this.SWA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.SWA.AutoSize = true;
-            this.SWA.Location = new System.Drawing.Point(516, 291);
+            this.SWA.Location = new System.Drawing.Point(520, 291);
             this.SWA.Name = "SWA";
             this.SWA.Size = new System.Drawing.Size(100, 19);
             this.SWA.TabIndex = 5;
@@ -259,7 +260,7 @@
             this.AaTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.AaTrack.AutoSize = false;
             this.AaTrack.LargeChange = 1;
-            this.AaTrack.Location = new System.Drawing.Point(516, 64);
+            this.AaTrack.Location = new System.Drawing.Point(516, 57);
             this.AaTrack.Maximum = 6;
             this.AaTrack.Minimum = 1;
             this.AaTrack.Name = "AaTrack";
@@ -273,7 +274,7 @@
             // 
             this.AaLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.AaLabel.AutoSize = true;
-            this.AaLabel.Location = new System.Drawing.Point(519, 49);
+            this.AaLabel.Location = new System.Drawing.Point(519, 42);
             this.AaLabel.Name = "AaLabel";
             this.AaLabel.Size = new System.Drawing.Size(69, 15);
             this.AaLabel.TabIndex = 18;

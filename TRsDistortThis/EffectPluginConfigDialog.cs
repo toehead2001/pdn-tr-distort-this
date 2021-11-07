@@ -12,10 +12,10 @@ namespace TRsDistortThis
 {
     internal partial class EffectPluginConfigDialog : EffectConfigDialog
     {
-        private Point[] Corners = new Point[4];
-        private Point[] vCorners = new Point[4];
-        private Rectangle sCorners = new Rectangle();
-        private Rectangle anchor = new Rectangle();
+        private Point[] srcCorners = new Point[4];
+        private Point[] previewCorners = new Point[4];
+        private Rectangle srcWorkArea = new Rectangle();
+        private Rectangle previewWorkArea = new Rectangle();
         private PointF ConvertXY = new PointF(1, 1);
         private bool moveflag = false;
         private bool SWAFlag = false;
@@ -53,10 +53,10 @@ namespace TRsDistortThis
         protected override void InitTokenFromDialog()
         {
             EffectPluginConfigToken token = (EffectPluginConfigToken)base.theEffectToken;
-            token.Anchor = anchor;
-            token.Corners = Corners;
-            token.vCorners = vCorners;
-            token.sCorners = sCorners;
+            token.Anchor = previewWorkArea;
+            token.Corners = srcCorners;
+            token.vCorners = previewCorners;
+            token.sCorners = srcWorkArea;
 
             token.initialize = false;
             token.Tweak = tweak;
@@ -71,10 +71,10 @@ namespace TRsDistortThis
         protected override void InitDialogFromToken(EffectConfigToken effectToken)
         {
             EffectPluginConfigToken token = (EffectPluginConfigToken)effectToken;
-            Corners = token.Corners;
-            anchor = token.Anchor;
-            sCorners = token.sCorners;
-            vCorners = token.vCorners;
+            srcCorners = token.Corners;
+            previewWorkArea = token.Anchor;
+            srcWorkArea = token.sCorners;
+            previewCorners = token.vCorners;
 
             tweak = token.Tweak;
             initialize = token.initialize;
@@ -110,11 +110,16 @@ namespace TRsDistortThis
             }
             //=====make checkerboard
 
-            PreViewBMP.BackgroundImage = new Bitmap(PreViewBMP.ClientRectangle.Width, PreViewBMP.ClientRectangle.Height);
-            PreViewBMP.Image = new Bitmap(PreViewBMP.ClientRectangle.Width, PreViewBMP.ClientRectangle.Height);
-            using (Surface tmp = new Surface(PreViewBMP.ClientRectangle.Size))
+            Size previewBounds = PreViewBMP.ClientRectangle.Size;
+
+            PreViewBMP.BackgroundImage = new Bitmap(previewBounds.Width, previewBounds.Height);
+            PreViewBMP.Image = new Bitmap(previewBounds.Width, previewBounds.Height);
+            using (Surface tmp = new Surface(previewBounds))
             {
-                ResamplingAlgorithm algorithm = (srcBounds.Width > tmp.Width || srcBounds.Height > tmp.Height) ? ResamplingAlgorithm.Fant : ResamplingAlgorithm.Bicubic;
+                ResamplingAlgorithm algorithm = (srcBounds.Width > tmp.Width || srcBounds.Height > tmp.Height)
+                    ? ResamplingAlgorithm.Fant
+                    : ResamplingAlgorithm.Bicubic;
+
                 tmp.FitSurface(algorithm, this.EnvironmentParameters.SourceSurface);
                 using (Graphics g = Graphics.FromImage(PreViewBMP.Image))
                     g.DrawImage(tmp.CreateAliasedBitmap(), 0, 0);
@@ -123,14 +128,12 @@ namespace TRsDistortThis
                 using (Graphics g = Graphics.FromImage(PreViewBMP.BackgroundImage))
                     g.DrawImage(tmp.CreateAliasedBitmap(), 0, 0);
             }
-            GC.Collect();
 
-            this.Opacity = 1;
-            ConvertXY.X = (float)(srcBounds.Width - 1) / (PreViewBMP.ClientRectangle.Width - 1);
-            ConvertXY.Y = (float)(srcBounds.Height - 1) / (PreViewBMP.ClientRectangle.Height - 1);
+            ConvertXY.X = (float)(srcBounds.Width - 1) / (previewBounds.Width - 1);
+            ConvertXY.Y = (float)(srcBounds.Height - 1) / (previewBounds.Height - 1);
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             this.Text = EffectPlugin.StaticName + " ver. " + version.Major + "." + version.Minor + "." + version.Build;
-            ReZet(initialize);
+            Reset(initialize);
 
             base.OnLoad(e);
         }
@@ -141,12 +144,12 @@ namespace TRsDistortThis
             if (SWA.Checked)
             {
                 SWAFlag = true;
-                anchor = new Rectangle(e.X, e.Y, 1, 1);
+                previewWorkArea = new Rectangle(e.X, e.Y, 1, 1);
             }
             else if (CheckNode(e.Location))
             {
                 this.mouseDownPoint = e.Location;
-                symmetry(e.Location);
+                MoveNub(e.Location);
                 moveflag = true;
                 PreViewBMP.Refresh();
             }
@@ -156,40 +159,23 @@ namespace TRsDistortThis
                 bool results = false;
                 for (int i = 0; i < 4; i++)
                 {
-                    if (MyUtils.Pythag(vCorners[i], hit) <= 5)
+                    if (MyUtils.Pythag(previewCorners[i], hit) <= 5)
                     {
                         results = true;
                         CornerSelect = i;
                         this.sideSelected = -1;
-                        this.cornerOrigin = vCorners[i];
+                        this.cornerOrigin = previewCorners[i];
                         break;
                     }
 
-                    Point sideNub = MyUtils.CenterPoint(new[] { vCorners[i], vCorners[(i > 2) ? 0 : i + 1] });
+                    Point sideNub = MyUtils.CenterPoint(new[] { previewCorners[i], previewCorners[(i + 1) % 4] });
                     if (MyUtils.Pythag(sideNub, hit) <= 5)
                     {
                         results = true;
                         this.sideSelected = i;
                         CornerSelect = -1;
-                        switch (i)
-                        {
-                            case 0:
-                                this.sideOriginA = vCorners[0];
-                                this.sideOriginB = vCorners[1];
-                                break;
-                            case 1:
-                                this.sideOriginA = vCorners[1];
-                                this.sideOriginB = vCorners[2];
-                                break;
-                            case 2:
-                                this.sideOriginA = vCorners[2];
-                                this.sideOriginB = vCorners[3];
-                                break;
-                            case 3:
-                                this.sideOriginA = vCorners[3];
-                                this.sideOriginB = vCorners[0];
-                                break;
-                        }
+                        this.sideOriginA = previewCorners[i];
+                        this.sideOriginB = previewCorners[(i + 1) % 4];
                         break;
                     }
                 }
@@ -205,27 +191,26 @@ namespace TRsDistortThis
                 SWA.Checked = false;
                 PreViewBMP.Cursor = Cursors.Default;
                 tweak = new Point[4];
-                if (anchor.Width < 0)
+                if (previewWorkArea.Width < 0)
                 {
-                    anchor.X += anchor.Width;
-                    anchor.Width *= -1;
+                    previewWorkArea.X += previewWorkArea.Width;
+                    previewWorkArea.Width *= -1;
                 }
-                if (anchor.Height < 0)
+                if (previewWorkArea.Height < 0)
                 {
-                    anchor.Y += anchor.Height;
-                    anchor.Height *= -1;
+                    previewWorkArea.Y += previewWorkArea.Height;
+                    previewWorkArea.Height *= -1;
                 }
 
-                vCorners = anchor.ToPointArray();
+                previewCorners = previewWorkArea.ToPointArray();
                 PreViewBMP.Refresh();
-
 
                 for (int i = 0; i < 4; i++)
                 {
-                    Corners[i] = getCorner(vCorners[i], tweak[i]).Clamp(srcBounds);
+                    srcCorners[i] = getCorner(previewCorners[i], tweak[i]).Clamp(srcBounds);
                 }
-                sCorners = Corners.ToRectangle();
-                if (sCorners.Width <= 0 || sCorners.Height <= 0)
+                srcWorkArea = srcCorners.ToRectangle();
+                if (srcWorkArea.Width <= 0 || srcWorkArea.Height <= 0)
                 {
                     SWAFlag = true;
                     SWA.Checked = true;
@@ -240,18 +225,17 @@ namespace TRsDistortThis
 
                 if (CornerSelect != -1)
                 {
-                    symmetry(e.Location);
+                    MoveNub(e.Location);
                     PreViewBMP.Refresh();
                     FinishTokenUpdate();
                 }
-
             }
         }
 
-        private void symmetry(Point e)
+        private void MoveNub(Point mouseLocation)
         {
-            int xDist = e.X - this.mouseDownPoint.X;
-            int yDist = e.Y - this.mouseDownPoint.Y;
+            int xDist = mouseLocation.X - this.mouseDownPoint.X;
+            int yDist = mouseLocation.Y - this.mouseDownPoint.Y;
 
             Rectangle bounds = this.PreViewBMP.ClientRectangle;
 
@@ -268,10 +252,10 @@ namespace TRsDistortThis
                     int[] ySym = { 3, 2, 1, 0 };
                     int[] dSym = { 2, 3, 0, 1 };
 
-                    int xMidPoint = MyUtils.Average(vCorners[xSym[CornerSelect]].X, vCorners[CornerSelect].X);
+                    int xMidPoint = MyUtils.Average(previewCorners[xSym[CornerSelect]].X, previewCorners[CornerSelect].X);
                     int mx = xMidPoint + (xMidPoint - nubDest.X);
 
-                    int yMidPoint = MyUtils.Average(vCorners[ySym[CornerSelect]].Y, vCorners[CornerSelect].Y);
+                    int yMidPoint = MyUtils.Average(previewCorners[ySym[CornerSelect]].Y, previewCorners[CornerSelect].Y);
                     int my = yMidPoint + (yMidPoint - nubDest.Y);
 
                     xMirrorPaintPoint = new Point(xMidPoint, nubDest.Y);
@@ -279,21 +263,21 @@ namespace TRsDistortThis
 
                     if (mirrorX && mirrorY)
                     {
-                        vCorners[dSym[CornerSelect]] = new Point(mx, my).Clamp(bounds);
+                        previewCorners[dSym[CornerSelect]] = new Point(mx, my).Clamp(bounds);
                     }
 
                     if (mirrorX)
                     {
-                        vCorners[xSym[CornerSelect]] = new Point(mx, nubDest.Y).Clamp(bounds);
+                        previewCorners[xSym[CornerSelect]] = new Point(mx, nubDest.Y).Clamp(bounds);
                     }
 
                     if (mirrorY)
                     {
-                        vCorners[ySym[CornerSelect]] = new Point(nubDest.X, my).Clamp(bounds);
+                        previewCorners[ySym[CornerSelect]] = new Point(nubDest.X, my).Clamp(bounds);
                     }
                 }
 
-                vCorners[CornerSelect] = nubDest;
+                previewCorners[CornerSelect] = nubDest;
             }
             else if (this.sideSelected > -1)
             {
@@ -308,7 +292,7 @@ namespace TRsDistortThis
                     sideDestA = new Point(sideDestA.X - newDist.X, sideDestA.Y - newDist.Y);
                     sideDestB = new Point(sideDestB.X - newDist.X, sideDestB.Y - newDist.Y);
                 }
-                
+
                 if (!bounds.Contains(sideDestB))
                 {
                     Point clampedB = sideDestB.Clamp(bounds);
@@ -318,28 +302,11 @@ namespace TRsDistortThis
                     sideDestB = new Point(sideDestB.X - newDist.X, sideDestB.Y - newDist.Y);
                 }
 
-                switch (this.sideSelected)
-                {
-                    case 0:
-                        vCorners[0] = sideDestA;
-                        vCorners[1] = sideDestB;
-                        break;
-                    case 1:
-                        vCorners[1] = sideDestA;
-                        vCorners[2] = sideDestB;
-                        break;
-                    case 2:
-                        vCorners[2] = sideDestA;
-                        vCorners[3] = sideDestB;
-                        break;
-                    case 3:
-                        vCorners[3] = sideDestA;
-                        vCorners[0] = sideDestB;
-                        break;
-                }
+                previewCorners[this.sideSelected] = sideDestA;
+                previewCorners[(this.sideSelected + 1) % 4] = sideDestB;
             }
 
-            for (int i = 0; i < 4; i++) Corners[i] = getCorner(vCorners[i], Point.Empty);
+            for (int i = 0; i < 4; i++) srcCorners[i] = getCorner(previewCorners[i], Point.Empty);
             tweak = new Point[4];
         }
 
@@ -347,15 +314,15 @@ namespace TRsDistortThis
         {
             if (SWAFlag)
             {
-                anchor.Width = e.X - anchor.X;
-                anchor.Height = e.Y - anchor.Y;
-                anchor = anchor.Clamp(PreViewBMP.ClientRectangle);
+                previewWorkArea.Width = e.X - previewWorkArea.X;
+                previewWorkArea.Height = e.Y - previewWorkArea.Y;
+                previewWorkArea = previewWorkArea.Clamp(PreViewBMP.ClientRectangle);
 
                 PreViewBMP.Refresh();
             }
             else if (moveflag)
             {
-                symmetry(e.Location);
+                MoveNub(e.Location);
 
                 PreViewBMP.Refresh();
                 FinishTokenUpdate();
@@ -367,7 +334,7 @@ namespace TRsDistortThis
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.CompositingMode = CompositingMode.SourceOver;
 
-            Rectangle nAnchor = anchor;
+            Rectangle nAnchor = previewWorkArea;
             if (SWAFlag)
             {
                 if (nAnchor.Width < 0)
@@ -392,13 +359,13 @@ namespace TRsDistortThis
             }
             nAnchor.Width--;
             nAnchor.Height--;
-            using (Pen anchorPen = new Pen((SWAFlag) ? Color.Blue : Color.FromArgb(128, Color.Blue), 1))
+            using (Pen anchorPen = new Pen(SWAFlag ? Color.Blue : Color.FromArgb(128, Color.Blue), 1))
                 e.Graphics.DrawRectangle(anchorPen, nAnchor);
 
             using (Pen vCornersPen = new Pen(Color.FromArgb(128, Color.Red), 3))
             {
                 vCornersPen.LineJoin = LineJoin.Bevel;
-                e.Graphics.DrawPolygon(vCornersPen, vCorners);
+                e.Graphics.DrawPolygon(vCornersPen, previewCorners);
             }
 
             if (moveflag && this.sideSelected == -1 && this.CornerSelect > -1)
@@ -429,53 +396,47 @@ namespace TRsDistortThis
 
             for (int i = 0; i < 4; i++)
             {
-                Rectangle nubPos = new Rectangle(vCorners[i].X - 5, vCorners[i].Y - 5, 10, 10);
+                Rectangle nubPos = new Rectangle(previewCorners[i].X - 5, previewCorners[i].Y - 5, 10, 10);
                 e.Graphics.FillEllipse(i == CornerSelect ? Brushes.LightBlue : Brushes.White, nubPos);
                 e.Graphics.DrawEllipse(i == CornerSelect ? Pens.DarkBlue : Pens.Black, nubPos);
-            }
 
-            for (int i = 0; i < 4; i++)
-            {
-                Point sideNub = MyUtils.CenterPoint(new[] { vCorners[i], vCorners[(i > 2) ? 0 : i + 1] });
-                Rectangle nubPos = new Rectangle(sideNub.X - 4, sideNub.Y - 4, 8, 8);
-                e.Graphics.FillEllipse(i == sideSelected ? Brushes.LightBlue : Brushes.White, nubPos);
-                e.Graphics.DrawEllipse(i == sideSelected ? Pens.DarkBlue : Pens.DimGray, nubPos);
+                Point sideNub = MyUtils.CenterPoint(new[] { previewCorners[i], previewCorners[(i + 1) % 4] });
+                Rectangle sideNubPos = new Rectangle(sideNub.X - 4, sideNub.Y - 4, 8, 8);
+                e.Graphics.FillEllipse(i == sideSelected ? Brushes.LightBlue : Brushes.White, sideNubPos);
+                e.Graphics.DrawEllipse(i == sideSelected ? Pens.DarkBlue : Pens.DimGray, sideNubPos);
             }
         }
 
         private void RstButton_Click(object sender, EventArgs e)
         {
-            ReZet(true);
+            Reset(true);
         }
 
         private void ResetNubsButton_Click(object sender, EventArgs e)
         {
-            vCorners = anchor.ToPointArray();
-            PreViewBMP.Refresh();
+            srcCorners = srcBounds.ToPointArray();
+            previewCorners = previewWorkArea.ToPointArray();
 
-            for (int i = 0; i < 4; i++)
-            {
-                Corners[i] = getCorner(vCorners[i], tweak[i]).Clamp(srcBounds);
-            }
+            PreViewBMP.Refresh();
             FinishTokenUpdate();
         }
 
-        private void ReZet(bool newSet)
+        private void Reset(bool newSet)
         {
             if (newSet)
             {
-                Corners = srcBounds.ToPointArray();
-                sCorners = srcBounds;
-                vCorners = PreViewBMP.ClientRectangle.ToPointArray();
+                srcCorners = srcBounds.ToPointArray();
+                srcWorkArea = srcBounds;
 
-                anchor = PreViewBMP.ClientRectangle;// MyRect(vCorners);
+                previewCorners = PreViewBMP.ClientRectangle.ToPointArray();
+                previewWorkArea = PreViewBMP.ClientRectangle;
             }
             else
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    vCorners[i] = getVcorner(Corners[i]);
-                    tweak[i] = getTweak(Corners[i], vCorners[i]);
+                    previewCorners[i] = getVcorner(srcCorners[i]);
+                    tweak[i] = getTweak(srcCorners[i], previewCorners[i]);
                 }
             }
             PreViewBMP.Refresh();
@@ -502,26 +463,19 @@ namespace TRsDistortThis
 
         private void PerspBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (PerspBox.Checked)
-            {
-                UVal.Enabled = true;
-                UAxis.Enabled = true;
-                VVal.Enabled = true;
-                VAxis.Enabled = true;
-            }
-            else
-            {
-                UVal.Enabled = false;
-                UAxis.Enabled = false;
-                VVal.Enabled = false;
-                VAxis.Enabled = false;
-            }
+            bool forcedPerspective = PerspBox.Checked;
+
+            UVal.ForeColor = forcedPerspective ? this.ForeColor : Color.Gray;
+            UAxis.Enabled = forcedPerspective;
+            VVal.ForeColor = forcedPerspective ? this.ForeColor : Color.Gray;
+            VAxis.Enabled = forcedPerspective;
+
             FinishTokenUpdate();
         }
 
         private void AlphaBox_CheckedChanged(object sender, EventArgs e)
         {
-            AaLabel.Enabled = AlphaBox.Checked;
+            AaLabel.ForeColor = AlphaBox.Checked ? this.ForeColor : Color.Gray;
             AaTrack.Enabled = AlphaBox.Checked;
             FinishTokenUpdate();
         }
@@ -557,19 +511,19 @@ namespace TRsDistortThis
                 switch (keys)
                 {
                     case Keys.Up:
-                        Corners[CornerSelect].Y -= 1;
+                        srcCorners[CornerSelect].Y -= 1;
                         tweaked = true;
                         break;
                     case Keys.Down:
-                        Corners[CornerSelect].Y += 1;
+                        srcCorners[CornerSelect].Y += 1;
                         tweaked = true;
                         break;
                     case Keys.Left:
-                        Corners[CornerSelect].X -= 1;
+                        srcCorners[CornerSelect].X -= 1;
                         tweaked = true;
                         break;
                     case Keys.Right:
-                        Corners[CornerSelect].X += 1;
+                        srcCorners[CornerSelect].X += 1;
                         tweaked = true;
                         break;
                     case Keys.Tab:
@@ -580,9 +534,9 @@ namespace TRsDistortThis
 
                 if (tweaked)
                 {
-                    Corners[CornerSelect] = Corners[CornerSelect].Clamp(srcBounds);
-                    vCorners[CornerSelect] = getVcorner(Corners[CornerSelect]);
-                    tweak[CornerSelect] = getTweak(Corners[CornerSelect], vCorners[CornerSelect]);
+                    srcCorners[CornerSelect] = srcCorners[CornerSelect].Clamp(srcBounds);
+                    previewCorners[CornerSelect] = getVcorner(srcCorners[CornerSelect]);
+                    tweak[CornerSelect] = getTweak(srcCorners[CornerSelect], previewCorners[CornerSelect]);
                     FinishTokenUpdate();
                 }
 
@@ -602,7 +556,7 @@ namespace TRsDistortThis
             SWAFlag = false;
             if (SWA.Checked)
             {
-                ReZet(true);
+                Reset(true);
                 PreViewBMP.Cursor = Cursors.Cross;
             }
             else
@@ -656,9 +610,9 @@ namespace TRsDistortThis
                 return;
 
             cParam.Visible = false;
-            Corners[CornerSelect] = p;
-            vCorners[CornerSelect] = getVcorner(Corners[CornerSelect]);
-            tweak[CornerSelect] = getTweak(Corners[CornerSelect], vCorners[CornerSelect]);
+            srcCorners[CornerSelect] = p;
+            previewCorners[CornerSelect] = getVcorner(srcCorners[CornerSelect]);
+            tweak[CornerSelect] = getTweak(srcCorners[CornerSelect], previewCorners[CornerSelect]);
             PreViewBMP.Refresh();
             FinishTokenUpdate();
         }
@@ -667,7 +621,7 @@ namespace TRsDistortThis
         {
             if (CornerSelect == -1)
                 return;
-            cParam.Text = $"{Corners[CornerSelect].X} {Corners[CornerSelect].Y}";
+            cParam.Text = $"{srcCorners[CornerSelect].X} {srcCorners[CornerSelect].Y}";
             cParam.Select(cParam.Text.Length, 0);
             Point p = PreViewBMP.ClientRectangle.CenterPoint();
             cParam.Location = new Point(p.X - cParam.Width / 2, p.Y - cParam.Height / 2);
@@ -680,7 +634,7 @@ namespace TRsDistortThis
             e.Cancel = true;
             base.OnHelpButtonClicked(e);
 
-            string helpMessage = "The control nubs can be manipulated in the following ways:\n"
+            const string helpMessage = "The control nubs can be manipulated in the following ways:\n"
                 + "\n"
                 + "  - Arrow Keys move the Selected Corner by 1px\n"
                 + "\n"
