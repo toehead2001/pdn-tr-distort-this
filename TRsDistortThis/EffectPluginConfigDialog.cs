@@ -43,6 +43,10 @@ namespace TRsDistortThis
             InitializeComponent();
 
             SeeThru.Enabled = EnableOpacity;
+
+            // Dark Theme Fixes
+            cParam.ForeColor = this.ForeColor;
+            cParam.BackColor = this.BackColor;
         }
 
         protected override void InitialInitToken()
@@ -89,10 +93,6 @@ namespace TRsDistortThis
 
         protected override void OnLoad(EventArgs e)
         {
-            // Dark Theme Fixes
-            cParam.ForeColor = this.ForeColor;
-            cParam.BackColor = this.BackColor;
-
             srcBounds = this.EnvironmentParameters.SourceSurface.Bounds;
             float ratio = (float)srcBounds.Height / srcBounds.Width;
 
