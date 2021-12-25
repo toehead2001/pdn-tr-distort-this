@@ -223,7 +223,7 @@ namespace TRsDistortThis
             {
                 moveflag = false;
 
-                if (CornerSelect != -1)
+                if (CornerSelect != -1 || sideSelected != -1)
                 {
                     MoveNub(e.Location);
                     PreViewBMP.Refresh();
@@ -397,13 +397,28 @@ namespace TRsDistortThis
             for (int i = 0; i < 4; i++)
             {
                 Rectangle nubPos = new Rectangle(previewCorners[i].X - 5, previewCorners[i].Y - 5, 10, 10);
-                e.Graphics.FillEllipse(i == CornerSelect ? Brushes.LightBlue : Brushes.White, nubPos);
-                e.Graphics.DrawEllipse(i == CornerSelect ? Pens.DarkBlue : Pens.Black, nubPos);
+                bool nubSelected = i == CornerSelect;
+                e.Graphics.FillEllipse(nubSelected ? Brushes.LightBlue : Brushes.White, nubPos);
+                e.Graphics.DrawEllipse(nubSelected ? Pens.DarkBlue : Pens.Black, nubPos);
 
                 Point sideNub = MyUtils.CenterPoint(new[] { previewCorners[i], previewCorners[(i + 1) % 4] });
                 Rectangle sideNubPos = new Rectangle(sideNub.X - 4, sideNub.Y - 4, 8, 8);
-                e.Graphics.FillEllipse(i == sideSelected ? Brushes.LightBlue : Brushes.White, sideNubPos);
-                e.Graphics.DrawEllipse(i == sideSelected ? Pens.DarkBlue : Pens.DimGray, sideNubPos);
+                bool sideNubSelected = moveflag && i == sideSelected;
+                e.Graphics.FillEllipse(sideNubSelected ? Brushes.LightGreen : Brushes.White, sideNubPos);
+                e.Graphics.DrawEllipse(sideNubSelected ? Pens.DarkGreen : Pens.DimGray, sideNubPos);
+            }
+
+            if (moveflag && sideSelected > -1)
+            {
+                int iA = this.sideSelected;
+                Rectangle nubPosA = new Rectangle(previewCorners[iA].X - 5, previewCorners[iA].Y - 5, 10, 10);
+                e.Graphics.FillEllipse(Brushes.LightBlue, nubPosA);
+                e.Graphics.DrawEllipse(Pens.DarkBlue, nubPosA);
+
+                int iB = (this.sideSelected + 1) % 4;
+                Rectangle nubPosb = new Rectangle(previewCorners[iB].X - 5, previewCorners[iB].Y - 5, 10, 10);
+                e.Graphics.FillEllipse(Brushes.LightBlue, nubPosb);
+                e.Graphics.DrawEllipse(Pens.DarkBlue, nubPosb);
             }
         }
 
