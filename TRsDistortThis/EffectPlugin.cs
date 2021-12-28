@@ -12,7 +12,7 @@ namespace TRsDistortThis
         public string Copyright => base.GetType().Assembly.GetCustomAttribute<AssemblyDescriptionAttribute>().Description;
         public string DisplayName => base.GetType().Assembly.GetCustomAttribute<AssemblyProductAttribute>().Product;
         public Version Version => base.GetType().Assembly.GetName().Version;
-        public Uri WebsiteUri => new Uri("https://forums.getpaint.net/index.php?showtopic=111622");
+        public Uri WebsiteUri => new Uri("https://forums.getpaint.net/topic/111622-distort-this/");
     }
 
     [PluginSupportInfo(typeof(PluginSupportInfo), DisplayName = "Distort This!")]
