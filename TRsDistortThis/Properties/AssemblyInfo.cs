@@ -10,7 +10,7 @@ using System.Runtime.Versioning;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("toe_head2001")]
 [assembly: AssemblyProduct("DistortThis")]
-[assembly: AssemblyCopyright("Copyright © 2018 toe_head2001, TechnoRobbo")]
+[assembly: AssemblyCopyright("Copyright © 2021 toe_head2001, TechnoRobbo")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: SupportedOSPlatform("Windows")]
@@ -30,4 +30,4 @@ using System.Runtime.Versioning;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("2.9.0.0")]
+[assembly: AssemblyVersion("2.10.0.0")]
